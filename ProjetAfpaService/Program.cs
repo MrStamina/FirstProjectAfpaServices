@@ -18,6 +18,7 @@ namespace ProjetAfpaService
             Application.SetCompatibleTextRenderingDefault(false);
             Dao.DaoProjet.Init();
             Application.Run(new Form1());
+            //MessageBox.Show("Plop");
         }
     }
 }
