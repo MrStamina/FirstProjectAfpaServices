@@ -236,11 +236,12 @@ namespace ProjetAfpaService
         }
 
         // Gestion du click sur le bouton créer
+        // TODO Créer une méthode qui clear toutes les boxs sauf client et collabos ou chercher comment reinitialiser le tout
         private void buttonCreer_Click(object sender, EventArgs e)
         {
             groupBoxForfait.Visible = true;
             groupBoxProjet.Visible = true;
-            
+            ChangerEnabledTrue();
         }
     }
 }
