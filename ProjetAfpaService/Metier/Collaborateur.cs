@@ -26,5 +26,10 @@ namespace ProjetAfpaService.Metier
         }
 
         // On oublie pas le Tostring et Equals
+
+        public override string ToString()
+        {
+            return "[" + Nom + "," + Prenom + "," + DEmbauche.ToShortDateString() + "," + PrJournalier + "]";
+        }
     }
 }

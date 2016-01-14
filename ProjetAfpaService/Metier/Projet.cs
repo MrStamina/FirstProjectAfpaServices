@@ -15,7 +15,12 @@ namespace ProjetAfpaService.Metier
         public string Contact { get; set; }
         public string MailContact { get; set; }
 
-        
+        public override string ToString()
+        {
+            return "[" + CodeProjet + "," + NomProjet + "," + DDebut.ToShortDateString() + "," + DFin.ToShortDateString() + "]" /*+ "," + LeClient + "," + Contact + "," + MailContact*/;
+        }
+
+
 
     }
 }

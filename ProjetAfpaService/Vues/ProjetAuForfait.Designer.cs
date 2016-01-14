@@ -58,6 +58,8 @@
             this.errorProviderNomProjet = new System.Windows.Forms.ErrorProvider(this.components);
             this.errorProviderDateFin = new System.Windows.Forms.ErrorProvider(this.components);
             this.errorProviderDateDebut = new System.Windows.Forms.ErrorProvider(this.components);
+            this.errorProviderMailAdress = new System.Windows.Forms.ErrorProvider(this.components);
+            this.errorProviderMontant = new System.Windows.Forms.ErrorProvider(this.components);
             this.groupBoxProjet.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.clientBindingSource)).BeginInit();
             this.groupBoxForfait.SuspendLayout();
@@ -66,6 +68,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.errorProviderNomProjet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProviderDateFin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProviderDateDebut)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProviderMailAdress)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProviderMontant)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxProjet
@@ -185,6 +189,7 @@
             this.textBoxContact.Name = "textBoxContact";
             this.textBoxContact.Size = new System.Drawing.Size(146, 20);
             this.textBoxContact.TabIndex = 4;
+            this.textBoxContact.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxContact_KeyPress);
             // 
             // textBoxMailContact
             // 
@@ -192,6 +197,7 @@
             this.textBoxMailContact.Name = "textBoxMailContact";
             this.textBoxMailContact.Size = new System.Drawing.Size(146, 20);
             this.textBoxMailContact.TabIndex = 5;
+            this.textBoxMailContact.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxMailContact_Validating);
             // 
             // textBoxNomProjet
             // 
@@ -263,6 +269,8 @@
             this.textBoxMontantContrat.Name = "textBoxMontantContrat";
             this.textBoxMontantContrat.Size = new System.Drawing.Size(146, 20);
             this.textBoxMontantContrat.TabIndex = 6;
+            this.textBoxMontantContrat.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxMontantContrat_KeyPress);
+            this.textBoxMontantContrat.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxMontantContrat_Validating);
             // 
             // groupBoxPenalites
             // 
@@ -271,7 +279,7 @@
             this.groupBoxPenalites.Location = new System.Drawing.Point(121, 105);
             this.groupBoxPenalites.Name = "groupBoxPenalites";
             this.groupBoxPenalites.Size = new System.Drawing.Size(183, 76);
-            this.groupBoxPenalites.TabIndex = 0;
+            this.groupBoxPenalites.TabIndex = 11;
             this.groupBoxPenalites.TabStop = false;
             this.groupBoxPenalites.Text = "Penalites";
             // 
@@ -319,6 +327,14 @@
             // 
             this.errorProviderDateDebut.ContainerControl = this;
             // 
+            // errorProviderMailAdress
+            // 
+            this.errorProviderMailAdress.ContainerControl = this;
+            // 
+            // errorProviderMontant
+            // 
+            this.errorProviderMontant.ContainerControl = this;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -343,6 +359,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.errorProviderNomProjet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProviderDateFin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProviderDateDebut)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProviderMailAdress)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProviderMontant)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -378,6 +396,8 @@
         private System.Windows.Forms.BindingSource clientBindingSource;
         private System.Windows.Forms.BindingSource collaborateurBindingSource;
         private System.Windows.Forms.ErrorProvider errorProviderDateDebut;
+        private System.Windows.Forms.ErrorProvider errorProviderMailAdress;
+        private System.Windows.Forms.ErrorProvider errorProviderMontant;
     }
 }
 

@@ -26,7 +26,7 @@ namespace ProjetAfpaService.Metier
             MontantContrat = initMontantContrat;
             PenaliteOuiNon = initPenaliteOuinon;
             ChefDeProjet = initChefDeProjet;
-            previsions = initPrevisions; 
+            previsions = initPrevisions;
         }
 
         public ProjetForfait(int initCodeProjet, string initNomProjet, DateTime initDdebut, DateTime initDfin, Client initLeCLient, string initContact, string initMailContact, decimal initMontantContrat, Penalite initPenaliteOuinon, Collaborateur initChefDeProjet)
@@ -43,6 +43,26 @@ namespace ProjetAfpaService.Metier
             ChefDeProjet = initChefDeProjet;
            
 
+        }
+
+        public ProjetForfait(int initCodeProjet, string initNomProjet, DateTime initDdebut, DateTime initDfin, Client initLeCLient, string initContact, string initMailContact, decimal initMontantContrat, Collaborateur initChefDeProjet)
+        {
+            CodeProjet = initCodeProjet;
+            NomProjet = initNomProjet;
+            DDebut = initDdebut;
+            DFin = initDfin;
+            LeClient = initLeCLient;
+            Contact = initContact;
+            MailContact = initMailContact;
+            MontantContrat = initMontantContrat;
+            ChefDeProjet = initChefDeProjet;
+
+
+        }
+
+        public override string ToString()
+        {
+            return base.ToString();
         }
 
 

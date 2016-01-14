@@ -30,5 +30,10 @@ namespace ProjetAfpaService.Metier
         }
 
         // ToString et Equals
+
+        public override string ToString()
+        {
+            return "[" + RaisonSociale + "," + Adresse1 + "," + Adresse2 + "," + CP + "," + Telephone +  "]";
+        }
     }
 }

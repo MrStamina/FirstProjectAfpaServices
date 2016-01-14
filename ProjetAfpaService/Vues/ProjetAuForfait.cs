@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ProjetAfpaService.Dao;
+using System.Text.RegularExpressions;
+using ProjetAfpaService.Metier;
 
 namespace ProjetAfpaService
 {
@@ -15,6 +17,7 @@ namespace ProjetAfpaService
     {
         bool nomProjet;
         bool dateIsOk;
+        bool montantIsOk;
         DateTime dateFin;
         DateTime dateDebut;
         public Form1()
@@ -75,6 +78,52 @@ namespace ProjetAfpaService
             }
         }
 
+        private void textBoxContact_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsLetter(e.KeyChar) & e.KeyChar != (char)Keys.Back & e.KeyChar != (char)Keys.Space)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void textBoxMailContact_Validating(object sender, CancelEventArgs e)
+        {
+            if (textBoxMailContact.Text != string.Empty)
+            {
+                if (!Regex.IsMatch(textBoxMailContact.Text, @"^([\w-\.])+@([\w]+\.)([a-zA-Z0-9]{2,4})$"))
+                {
+                    errorProviderMailAdress.SetError(textBoxMailContact, "Le format de l'adresse mail est incorrect");
+                    textBoxMailContact.Focus();
+                }
+                else
+                {
+                    errorProviderMailAdress.SetError(textBoxMailContact, string.Empty);
+                }
+            }
+        }
+
+        private void textBoxMontantContrat_Validating(object sender, CancelEventArgs e)
+        {
+            if (textBoxMontantContrat.Text == string.Empty)
+            {
+                errorProviderMontant.SetError(textBoxMontantContrat, "Veuillez saisir le montant du contrat");
+                montantIsOk = false;
+            }
+            else
+            {
+                montantIsOk = true;
+                errorProviderMontant.SetError(textBoxMontantContrat, string.Empty);
+            }
+        }
+
+        private void textBoxMontantContrat_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsNumber(e.KeyChar) & e.KeyChar != (char)Keys.Back)
+            {
+                e.Handled = true;
+            }
+        }
+
         // On lance le databinding au chargement
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -88,9 +137,18 @@ namespace ProjetAfpaService
             Random random = new Random();
             int codeProjet = random.Next(1, 100);
 
+            if (nomProjet == true && dateIsOk == true && montantIsOk == true)
+            {
+                Projet projet = new ProjetForfait(codeProjet, textBoxNomProjet.Text, dateDebut, dateFin, (Client)comboBoxClient.SelectedItem, textBoxContact.Text, textBoxMailContact.Text, Convert.ToDecimal(textBoxMontantContrat.Text),(Collaborateur)comboBoxResponsable.SelectedItem);
+                const string caption = "Projet enregistré";
+                string message = "Projet" + projet.ToString() + "\n" + "Client" + comboBoxClient.SelectedItem.ToString() + "\n" + textBoxContact.Text + "," + textBoxMailContact.Text + "\n" + "[" + textBoxMontantContrat.Text + "," + "Collaborateur" + comboBoxResponsable.SelectedItem.ToString();
+                MessageBox.Show(message, caption, MessageBoxButtons.OK);
+                                    
+            }
+
         }
 
-        // Gestion du bouton Quitter
+        // Gestion du bouton Quitter et du FormClosing
         private void buttonQuitter_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -105,5 +163,7 @@ namespace ProjetAfpaService
             if (result == DialogResult.No)
                 e.Cancel = true;
         }
+
+        
     }
 }
