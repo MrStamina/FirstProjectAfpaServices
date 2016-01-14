@@ -83,6 +83,8 @@
     <None Include="Properties\DataSources\Program.datasource" />
     <None Include="Properties\DataSources\ProjetAfpaService.Metier.Client.datasource" />
     <None Include="Properties\DataSources\ProjetAfpaService.Metier.Collaborateur.datasource" />
+    <None Include="Properties\DataSources\ProjetAfpaService.Metier.Projet.datasource" />
+    <None Include="Properties\DataSources\ProjetAfpaService.Metier.ProjetForfait.datasource" />
     <None Include="Properties\DataSources\ProjetAfpaService.Properties.Resources.datasource" />
     <None Include="Properties\DataSources\ProjetAfpaService.Properties.Settings.datasource" />
     <None Include="Properties\Settings.settings">

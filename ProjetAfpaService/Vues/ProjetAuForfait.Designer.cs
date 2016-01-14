@@ -30,7 +30,11 @@
         {
             this.components = new System.ComponentModel.Container();
             this.groupBoxProjet = new System.Windows.Forms.GroupBox();
+            this.buttonSupprimer = new System.Windows.Forms.Button();
+            this.buttonAnnuler = new System.Windows.Forms.Button();
+            this.buttonModifier = new System.Windows.Forms.Button();
             this.maskedTextBoxDateFin = new System.Windows.Forms.MaskedTextBox();
+            this.projetForfaitBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.maskedTextBoxDateDebut = new System.Windows.Forms.MaskedTextBox();
             this.labelMailContact = new System.Windows.Forms.Label();
             this.labelContact = new System.Windows.Forms.Label();
@@ -44,6 +48,7 @@
             this.textBoxMailContact = new System.Windows.Forms.TextBox();
             this.textBoxNomProjet = new System.Windows.Forms.TextBox();
             this.buttonValider = new System.Windows.Forms.Button();
+            this.projetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.groupBoxForfait = new System.Windows.Forms.GroupBox();
             this.labelResponsable = new System.Windows.Forms.Label();
@@ -60,8 +65,13 @@
             this.errorProviderDateDebut = new System.Windows.Forms.ErrorProvider(this.components);
             this.errorProviderMailAdress = new System.Windows.Forms.ErrorProvider(this.components);
             this.errorProviderMontant = new System.Windows.Forms.ErrorProvider(this.components);
+            this.comboBoxNomProjet = new System.Windows.Forms.ComboBox();
+            this.labelNomProjet2 = new System.Windows.Forms.Label();
+            this.buttonCreer = new System.Windows.Forms.Button();
             this.groupBoxProjet.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.projetForfaitBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.clientBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.projetBindingSource)).BeginInit();
             this.groupBoxForfait.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.collaborateurBindingSource)).BeginInit();
             this.groupBoxPenalites.SuspendLayout();
@@ -74,6 +84,9 @@
             // 
             // groupBoxProjet
             // 
+            this.groupBoxProjet.Controls.Add(this.buttonSupprimer);
+            this.groupBoxProjet.Controls.Add(this.buttonAnnuler);
+            this.groupBoxProjet.Controls.Add(this.buttonModifier);
             this.groupBoxProjet.Controls.Add(this.maskedTextBoxDateFin);
             this.groupBoxProjet.Controls.Add(this.maskedTextBoxDateDebut);
             this.groupBoxProjet.Controls.Add(this.labelMailContact);
@@ -87,15 +100,45 @@
             this.groupBoxProjet.Controls.Add(this.textBoxMailContact);
             this.groupBoxProjet.Controls.Add(this.textBoxNomProjet);
             this.groupBoxProjet.Controls.Add(this.buttonValider);
-            this.groupBoxProjet.Location = new System.Drawing.Point(12, 47);
+            this.groupBoxProjet.Location = new System.Drawing.Point(12, 117);
             this.groupBoxProjet.Name = "groupBoxProjet";
             this.groupBoxProjet.Size = new System.Drawing.Size(497, 208);
             this.groupBoxProjet.TabIndex = 0;
             this.groupBoxProjet.TabStop = false;
             this.groupBoxProjet.Text = "Projet";
+            this.groupBoxProjet.Visible = false;
+            // 
+            // buttonSupprimer
+            // 
+            this.buttonSupprimer.Location = new System.Drawing.Point(351, 148);
+            this.buttonSupprimer.Name = "buttonSupprimer";
+            this.buttonSupprimer.Size = new System.Drawing.Size(121, 29);
+            this.buttonSupprimer.TabIndex = 18;
+            this.buttonSupprimer.Text = "Supprimer";
+            this.buttonSupprimer.UseVisualStyleBackColor = true;
+            // 
+            // buttonAnnuler
+            // 
+            this.buttonAnnuler.Location = new System.Drawing.Point(351, 76);
+            this.buttonAnnuler.Name = "buttonAnnuler";
+            this.buttonAnnuler.Size = new System.Drawing.Size(121, 29);
+            this.buttonAnnuler.TabIndex = 17;
+            this.buttonAnnuler.Text = "Annuler";
+            this.buttonAnnuler.UseVisualStyleBackColor = true;
+            // 
+            // buttonModifier
+            // 
+            this.buttonModifier.Location = new System.Drawing.Point(351, 41);
+            this.buttonModifier.Name = "buttonModifier";
+            this.buttonModifier.Size = new System.Drawing.Size(121, 29);
+            this.buttonModifier.TabIndex = 16;
+            this.buttonModifier.Text = "Modifier";
+            this.buttonModifier.UseVisualStyleBackColor = true;
+            this.buttonModifier.Click += new System.EventHandler(this.buttonModifier_Click);
             // 
             // maskedTextBoxDateFin
             // 
+            this.maskedTextBoxDateFin.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projetForfaitBindingSource, "DFin", true));
             this.maskedTextBoxDateFin.Location = new System.Drawing.Point(157, 93);
             this.maskedTextBoxDateFin.Mask = "00/00/0000";
             this.maskedTextBoxDateFin.Name = "maskedTextBoxDateFin";
@@ -104,8 +147,13 @@
             this.maskedTextBoxDateFin.ValidatingType = typeof(System.DateTime);
             this.maskedTextBoxDateFin.Validating += new System.ComponentModel.CancelEventHandler(this.maskedTextBoxDateFin_Validating);
             // 
+            // projetForfaitBindingSource
+            // 
+            this.projetForfaitBindingSource.DataSource = typeof(ProjetAfpaService.Metier.ProjetForfait);
+            // 
             // maskedTextBoxDateDebut
             // 
+            this.maskedTextBoxDateDebut.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projetForfaitBindingSource, "DDebut", true));
             this.maskedTextBoxDateDebut.Location = new System.Drawing.Point(158, 67);
             this.maskedTextBoxDateDebut.Mask = "00/00/0000";
             this.maskedTextBoxDateDebut.Name = "maskedTextBoxDateDebut";
@@ -170,6 +218,7 @@
             // 
             // comboBoxClient
             // 
+            this.comboBoxClient.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.projetForfaitBindingSource, "LeClient", true));
             this.comboBoxClient.DataSource = this.clientBindingSource;
             this.comboBoxClient.DisplayMember = "RaisonSociale";
             this.comboBoxClient.FormattingEnabled = true;
@@ -185,6 +234,7 @@
             // 
             // textBoxContact
             // 
+            this.textBoxContact.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projetForfaitBindingSource, "Contact", true));
             this.textBoxContact.Location = new System.Drawing.Point(158, 145);
             this.textBoxContact.Name = "textBoxContact";
             this.textBoxContact.Size = new System.Drawing.Size(146, 20);
@@ -193,6 +243,7 @@
             // 
             // textBoxMailContact
             // 
+            this.textBoxMailContact.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projetForfaitBindingSource, "MailContact", true));
             this.textBoxMailContact.Location = new System.Drawing.Point(158, 171);
             this.textBoxMailContact.Name = "textBoxMailContact";
             this.textBoxMailContact.Size = new System.Drawing.Size(146, 20);
@@ -201,6 +252,7 @@
             // 
             // textBoxNomProjet
             // 
+            this.textBoxNomProjet.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projetForfaitBindingSource, "NomProjet", true));
             this.textBoxNomProjet.Location = new System.Drawing.Point(158, 41);
             this.textBoxNomProjet.Name = "textBoxNomProjet";
             this.textBoxNomProjet.Size = new System.Drawing.Size(146, 20);
@@ -209,13 +261,17 @@
             // 
             // buttonValider
             // 
-            this.buttonValider.Location = new System.Drawing.Point(351, 32);
+            this.buttonValider.Location = new System.Drawing.Point(351, 110);
             this.buttonValider.Name = "buttonValider";
             this.buttonValider.Size = new System.Drawing.Size(121, 29);
             this.buttonValider.TabIndex = 3;
             this.buttonValider.Text = "Valider";
             this.buttonValider.UseVisualStyleBackColor = true;
             this.buttonValider.Click += new System.EventHandler(this.buttonValider_Click);
+            // 
+            // projetBindingSource
+            // 
+            this.projetBindingSource.DataSource = typeof(ProjetAfpaService.Metier.Projet);
             // 
             // groupBoxForfait
             // 
@@ -224,12 +280,13 @@
             this.groupBoxForfait.Controls.Add(this.comboBoxResponsable);
             this.groupBoxForfait.Controls.Add(this.textBoxMontantContrat);
             this.groupBoxForfait.Controls.Add(this.groupBoxPenalites);
-            this.groupBoxForfait.Location = new System.Drawing.Point(12, 277);
+            this.groupBoxForfait.Location = new System.Drawing.Point(12, 340);
             this.groupBoxForfait.Name = "groupBoxForfait";
             this.groupBoxForfait.Size = new System.Drawing.Size(497, 200);
             this.groupBoxForfait.TabIndex = 1;
             this.groupBoxForfait.TabStop = false;
             this.groupBoxForfait.Text = "Forfait";
+            this.groupBoxForfait.Visible = false;
             // 
             // labelResponsable
             // 
@@ -251,6 +308,7 @@
             // 
             // comboBoxResponsable
             // 
+            this.comboBoxResponsable.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.projetForfaitBindingSource, "ChefDeProjet", true));
             this.comboBoxResponsable.DataSource = this.collaborateurBindingSource;
             this.comboBoxResponsable.DisplayMember = "Nom";
             this.comboBoxResponsable.FormattingEnabled = true;
@@ -265,6 +323,7 @@
             // 
             // textBoxMontantContrat
             // 
+            this.textBoxMontantContrat.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projetForfaitBindingSource, "MontantContrat", true));
             this.textBoxMontantContrat.Location = new System.Drawing.Point(158, 19);
             this.textBoxMontantContrat.Name = "textBoxMontantContrat";
             this.textBoxMontantContrat.Size = new System.Drawing.Size(146, 20);
@@ -307,7 +366,7 @@
             // 
             // buttonQuitter
             // 
-            this.buttonQuitter.Location = new System.Drawing.Point(363, 12);
+            this.buttonQuitter.Location = new System.Drawing.Point(363, 82);
             this.buttonQuitter.Name = "buttonQuitter";
             this.buttonQuitter.Size = new System.Drawing.Size(121, 29);
             this.buttonQuitter.TabIndex = 2;
@@ -335,12 +394,47 @@
             // 
             this.errorProviderMontant.ContainerControl = this;
             // 
+            // comboBoxNomProjet
+            // 
+            this.comboBoxNomProjet.DataSource = this.projetForfaitBindingSource;
+            this.comboBoxNomProjet.DisplayMember = "NomProjet";
+            this.comboBoxNomProjet.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxNomProjet.FormattingEnabled = true;
+            this.comboBoxNomProjet.Location = new System.Drawing.Point(79, 47);
+            this.comboBoxNomProjet.Name = "comboBoxNomProjet";
+            this.comboBoxNomProjet.Size = new System.Drawing.Size(145, 21);
+            this.comboBoxNomProjet.TabIndex = 0;
+            this.comboBoxNomProjet.ValueMember = "CodeClient";
+            this.comboBoxNomProjet.SelectedIndexChanged += new System.EventHandler(this.comboBoxNomProjet_SelectedIndexChanged);
+            // 
+            // labelNomProjet2
+            // 
+            this.labelNomProjet2.Location = new System.Drawing.Point(-15, 51);
+            this.labelNomProjet2.Name = "labelNomProjet2";
+            this.labelNomProjet2.Size = new System.Drawing.Size(88, 17);
+            this.labelNomProjet2.TabIndex = 11;
+            this.labelNomProjet2.Text = "Nom projet :";
+            this.labelNomProjet2.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // buttonCreer
+            // 
+            this.buttonCreer.Location = new System.Drawing.Point(363, 47);
+            this.buttonCreer.Name = "buttonCreer";
+            this.buttonCreer.Size = new System.Drawing.Size(121, 29);
+            this.buttonCreer.TabIndex = 12;
+            this.buttonCreer.Text = "Creer";
+            this.buttonCreer.UseVisualStyleBackColor = true;
+            this.buttonCreer.Click += new System.EventHandler(this.buttonCreer_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(535, 489);
+            this.ClientSize = new System.Drawing.Size(535, 566);
             this.ControlBox = false;
+            this.Controls.Add(this.buttonCreer);
+            this.Controls.Add(this.labelNomProjet2);
+            this.Controls.Add(this.comboBoxNomProjet);
             this.Controls.Add(this.buttonQuitter);
             this.Controls.Add(this.groupBoxForfait);
             this.Controls.Add(this.groupBoxProjet);
@@ -350,7 +444,9 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBoxProjet.ResumeLayout(false);
             this.groupBoxProjet.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.projetForfaitBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.clientBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.projetBindingSource)).EndInit();
             this.groupBoxForfait.ResumeLayout(false);
             this.groupBoxForfait.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.collaborateurBindingSource)).EndInit();
@@ -398,6 +494,14 @@
         private System.Windows.Forms.ErrorProvider errorProviderDateDebut;
         private System.Windows.Forms.ErrorProvider errorProviderMailAdress;
         private System.Windows.Forms.ErrorProvider errorProviderMontant;
+        private System.Windows.Forms.BindingSource projetBindingSource;
+        private System.Windows.Forms.Label labelNomProjet2;
+        private System.Windows.Forms.ComboBox comboBoxNomProjet;
+        private System.Windows.Forms.Button buttonCreer;
+        private System.Windows.Forms.Button buttonSupprimer;
+        private System.Windows.Forms.Button buttonAnnuler;
+        private System.Windows.Forms.Button buttonModifier;
+        private System.Windows.Forms.BindingSource projetForfaitBindingSource;
     }
 }
 

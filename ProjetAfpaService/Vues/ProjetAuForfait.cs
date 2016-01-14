@@ -24,7 +24,7 @@ namespace ProjetAfpaService
         {
             InitializeComponent();
         }
-
+      
        // Controle de la saisie des informations
         private void textBoxNomProjet_Validating(object sender, CancelEventArgs e)
         {
@@ -129,6 +129,11 @@ namespace ProjetAfpaService
         {
             clientBindingSource.DataSource = DaoProjet.GetAllclients();
             collaborateurBindingSource.DataSource = DaoProjet.GetAllCollaborateurs();
+            projetForfaitBindingSource.DataSource = DaoProjet.GetAllProject();
+            comboBoxNomProjet.SelectedItem = null;
+            groupBoxProjet.Visible = false;
+            groupBoxForfait.Visible = false;
+
         }
 
         // On gère l'evenement du click sur valider
@@ -137,9 +142,9 @@ namespace ProjetAfpaService
             Random random = new Random();
             int codeProjet = random.Next(1, 100);
 
-            if (nomProjet == true && dateIsOk == true && montantIsOk == true && )
+            if (nomProjet == true && dateIsOk == true && montantIsOk == true)
             {
-                Projet projet = new ProjetForfait(codeProjet, textBoxNomProjet.Text, dateDebut, dateFin, (Client)comboBoxClient.SelectedItem, textBoxContact.Text, textBoxMailContact.Text, Convert.ToDecimal(textBoxMontantContrat.Text),(Collaborateur)comboBoxResponsable.SelectedItem);
+                ProjetForfait projet = new ProjetForfait(codeProjet, textBoxNomProjet.Text, dateDebut, dateFin, (Client)comboBoxClient.SelectedItem, textBoxContact.Text, textBoxMailContact.Text, Convert.ToDecimal(textBoxMontantContrat.Text),(Collaborateur)comboBoxResponsable.SelectedItem);
                 const string caption = "Projet enregistré";
                 string message = "Projet" + projet.ToString() + "\n" + "Client" + comboBoxClient.SelectedItem.ToString() + "\n" + textBoxContact.Text + "," + textBoxMailContact.Text + "\n" + "[" + textBoxMontantContrat.Text + "," + "Collaborateur" + comboBoxResponsable.SelectedItem.ToString();
                 MessageBox.Show(message, caption, MessageBoxButtons.OK);
@@ -181,6 +186,61 @@ namespace ProjetAfpaService
                 e.Cancel = true;
         }
 
+        // Gestion de la combobox Nom projet
         
+        private void comboBoxNomProjet_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+            groupBoxProjet.Visible = true;
+            groupBoxForfait.Visible = true;
+            ChangerEnabledFalse();
+           
+        }
+
+        // Méthode pour changer l'Enabled
+        private void ChangerEnabledFalse()
+        {
+            textBoxNomProjet.Enabled = false;
+            maskedTextBoxDateDebut.Enabled = false;
+            maskedTextBoxDateFin.Enabled = false;
+            comboBoxClient.Enabled = false;
+            textBoxContact.Enabled = false;
+            textBoxMailContact.Enabled = false;
+            comboBoxResponsable.Enabled = false;
+            groupBoxPenalites.Enabled = false;
+            textBoxMontantContrat.Enabled = false;
+            buttonValider.Enabled = false;
+        }
+
+        private void ChangerEnabledTrue()
+        {
+            textBoxNomProjet.Enabled = true;
+            maskedTextBoxDateDebut.Enabled = true;
+            maskedTextBoxDateFin.Enabled = true;
+            comboBoxClient.Enabled = true;
+            textBoxContact.Enabled = true;
+            textBoxMailContact.Enabled = true;
+            comboBoxResponsable.Enabled = true;
+            groupBoxPenalites.Enabled = true;
+            textBoxMontantContrat.Enabled = true;
+            buttonValider.Enabled = false;
+        }
+
+        // Gestion du click sur le bouton modifier
+        // TODO Pas terminé
+
+        private void buttonModifier_Click(object sender, EventArgs e)
+        {
+            ChangerEnabledTrue();
+            buttonValider.Enabled = true;
+        }
+
+        // Gestion du click sur le bouton créer
+        private void buttonCreer_Click(object sender, EventArgs e)
+        {
+            groupBoxForfait.Visible = true;
+            groupBoxProjet.Visible = true;
+            
+        }
     }
 }

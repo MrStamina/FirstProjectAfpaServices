@@ -16,7 +16,8 @@ namespace ProjetAfpaService.Dao
         // pas de constructeurs
         // cette classe n'existe que pour accéder aux données
 
-        private static List<Projet> Projets;
+        private static List<ProjetForfait> Projets;
+       
 
         private static List<Client> Clients;	
         private static List<Collaborateur> Collaborateurs;	
@@ -48,7 +49,7 @@ namespace ProjetAfpaService.Dao
                 new Client(2,"Haribo France","67, Avenue du Capitaine Geze", null, "13013", "Marseille", "0101010101", null)
             };
 
-            Projets = new List<Projet>
+            Projets = new List<ProjetForfait>
             {
                 new ProjetForfait(8520, "Gesbonbon", new DateTime(2015,02,01), new DateTime(2015,05,30),Clients[1],"Catherine Tagada","c.tagada@haribo.fr",100000,Penalite.Oui,Collaborateurs[0],
                      new List<Prevision>
@@ -73,10 +74,15 @@ namespace ProjetAfpaService.Dao
             return Collaborateurs;
         }
 
-        public static bool AddProjet(Projet pr)
+        public static bool AddProjet(ProjetForfait pr)
         {
             Projets.Add(pr);
             return true;
+        }
+
+        public static List<ProjetForfait> GetAllProject()
+        {
+            return Projets;
         }
 
     }

@@ -25,6 +25,7 @@ namespace ProjetAfpaService.Metier
             return other is Projet && CodeProjet == ((Projet)other).CodeProjet;
         }
 
+    
 
     }
 }
