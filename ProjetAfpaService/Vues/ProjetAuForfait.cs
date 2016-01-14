@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using ProjetAfpaService.Dao;
 using System.Text.RegularExpressions;
 using ProjetAfpaService.Metier;
+using ProjetAfpaService.Methodes;
 
 namespace ProjetAfpaService
 {
@@ -193,45 +194,36 @@ namespace ProjetAfpaService
             
             groupBoxProjet.Visible = true;
             groupBoxForfait.Visible = true;
-            ChangerEnabledFalse();
-           
+            MethodesUtiles.ChangerEnabledFalse(textBoxNomProjet, maskedTextBoxDateDebut, maskedTextBoxDateFin, comboBoxClient, textBoxContact
+                , textBoxMailContact, comboBoxResponsable, groupBoxPenalites, textBoxMontantContrat, buttonValider);
+            //ChangerEnabledFalse();
+
         }
 
         // Méthode pour changer l'Enabled
-        private void ChangerEnabledFalse()
-        {
-            textBoxNomProjet.Enabled = false;
-            maskedTextBoxDateDebut.Enabled = false;
-            maskedTextBoxDateFin.Enabled = false;
-            comboBoxClient.Enabled = false;
-            textBoxContact.Enabled = false;
-            textBoxMailContact.Enabled = false;
-            comboBoxResponsable.Enabled = false;
-            groupBoxPenalites.Enabled = false;
-            textBoxMontantContrat.Enabled = false;
-            buttonValider.Enabled = false;
-        }
 
-        private void ChangerEnabledTrue()
-        {
-            textBoxNomProjet.Enabled = true;
-            maskedTextBoxDateDebut.Enabled = true;
-            maskedTextBoxDateFin.Enabled = true;
-            comboBoxClient.Enabled = true;
-            textBoxContact.Enabled = true;
-            textBoxMailContact.Enabled = true;
-            comboBoxResponsable.Enabled = true;
-            groupBoxPenalites.Enabled = true;
-            textBoxMontantContrat.Enabled = true;
-            buttonValider.Enabled = false;
-        }
+
+        //private void ChangerEnabledTrue()
+        //{
+        //    textBoxNomProjet.Enabled = true;
+        //    maskedTextBoxDateDebut.Enabled = true;
+        //    maskedTextBoxDateFin.Enabled = true;
+        //    comboBoxClient.Enabled = true;
+        //    textBoxContact.Enabled = true;
+        //    textBoxMailContact.Enabled = true;
+        //    comboBoxResponsable.Enabled = true;
+        //    groupBoxPenalites.Enabled = true;
+        //    textBoxMontantContrat.Enabled = true;
+        //    buttonValider.Enabled = false;
+        //}
 
         // Gestion du click sur le bouton modifier
         // TODO Pas terminé
 
         private void buttonModifier_Click(object sender, EventArgs e)
         {
-            ChangerEnabledTrue();
+      
+            //MethodesUtiles.EnabledChangeToTrue();
             buttonValider.Enabled = true;
         }
 
@@ -241,7 +233,7 @@ namespace ProjetAfpaService
         {
             groupBoxForfait.Visible = true;
             groupBoxProjet.Visible = true;
-            ChangerEnabledTrue();
+           
         }
     }
 }
