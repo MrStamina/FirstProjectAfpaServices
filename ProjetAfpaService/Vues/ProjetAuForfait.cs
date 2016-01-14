@@ -137,13 +137,30 @@ namespace ProjetAfpaService
             Random random = new Random();
             int codeProjet = random.Next(1, 100);
 
-            if (nomProjet == true && dateIsOk == true && montantIsOk == true)
+            if (nomProjet == true && dateIsOk == true && montantIsOk == true && )
             {
                 Projet projet = new ProjetForfait(codeProjet, textBoxNomProjet.Text, dateDebut, dateFin, (Client)comboBoxClient.SelectedItem, textBoxContact.Text, textBoxMailContact.Text, Convert.ToDecimal(textBoxMontantContrat.Text),(Collaborateur)comboBoxResponsable.SelectedItem);
                 const string caption = "Projet enregistré";
                 string message = "Projet" + projet.ToString() + "\n" + "Client" + comboBoxClient.SelectedItem.ToString() + "\n" + textBoxContact.Text + "," + textBoxMailContact.Text + "\n" + "[" + textBoxMontantContrat.Text + "," + "Collaborateur" + comboBoxResponsable.SelectedItem.ToString();
                 MessageBox.Show(message, caption, MessageBoxButtons.OK);
+                DaoProjet.AddProjet(projet);
                                     
+            }
+            else
+            {
+                if(nomProjet == false)
+                {
+                    errorProviderNomProjet.SetError(textBoxNomProjet, "Le nom est obligatoire pour créer un projet");
+                }
+                if (dateIsOk == false)
+                {
+                    errorProviderDateDebut.SetError(maskedTextBoxDateDebut, "La saisie des dates est obligatoire");
+                    errorProviderDateFin.SetError(maskedTextBoxDateFin, "La saisie des dates est obligatoire");
+                }
+                if(montantIsOk == false)
+                {
+                    errorProviderMontant.SetError(textBoxMontantContrat, "Le montant du contrat est obligatoire pour créer un projet");
+                }
             }
 
         }

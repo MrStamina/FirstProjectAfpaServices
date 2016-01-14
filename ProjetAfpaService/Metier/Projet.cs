@@ -20,6 +20,10 @@ namespace ProjetAfpaService.Metier
             return "[" + CodeProjet + "," + NomProjet + "," + DDebut.ToShortDateString() + "," + DFin.ToShortDateString() + "]" /*+ "," + LeClient + "," + Contact + "," + MailContact*/;
         }
 
+        public override bool Equals(Object other)
+        {
+            return other is Projet && CodeProjet == ((Projet)other).CodeProjet;
+        }
 
 
     }
