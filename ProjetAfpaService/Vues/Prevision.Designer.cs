@@ -75,17 +75,11 @@
             // 
             this.laQualifDataGridViewTextBoxColumn.DataPropertyName = "LaQualif";
             this.laQualifDataGridViewTextBoxColumn.DataSource = this.qualificationBindingSource;
-            this.laQualifDataGridViewTextBoxColumn.DisplayMember = "Libelle";
             this.laQualifDataGridViewTextBoxColumn.HeaderText = "LaQualif";
             this.laQualifDataGridViewTextBoxColumn.Name = "laQualifDataGridViewTextBoxColumn";
             this.laQualifDataGridViewTextBoxColumn.ReadOnly = true;
             this.laQualifDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.laQualifDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.laQualifDataGridViewTextBoxColumn.ValueMember = "Self";
-            // 
-            // qualificationBindingSource
-            // 
-            this.qualificationBindingSource.DataSource = typeof(ProjetAfpaService.Metier.Qualification);
             // 
             // nbJoursDataGridViewTextBoxColumn
             // 
@@ -145,6 +139,7 @@
             this.buttonCreer.TabIndex = 2;
             this.buttonCreer.Text = "Creer";
             this.buttonCreer.UseVisualStyleBackColor = true;
+            this.buttonCreer.Click += new System.EventHandler(this.buttonCreer_Click);
             // 
             // groupBoxPrevision
             // 

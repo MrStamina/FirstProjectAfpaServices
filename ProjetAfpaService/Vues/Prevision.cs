@@ -27,6 +27,7 @@ namespace ProjetAfpaService.Vues
             qualificationBindingSource.DataSource = DaoProjet.GetAllQualification();
             projetForfaitBindingSource.DataSource = DaoProjet.GetAllProject();
             comboBoxProjet.SelectedItem = null;
+            groupBoxPrevision.Visible = false;
         }
 
         //Gestion du selected index
@@ -37,6 +38,11 @@ namespace ProjetAfpaService.Vues
                 previsionBindingSource.DataSource = DaoProjet.GetAllProject()[comboBoxProjet.SelectedIndex].GetAllPrevision();
             }
             
+        }
+
+        private void buttonCreer_Click(object sender, EventArgs e)
+        {
+            groupBoxPrevision.Visible = true;
         }
     }
 }
