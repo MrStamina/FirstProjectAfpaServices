@@ -65,6 +65,10 @@ namespace ProjetAfpaService.Metier
             return base.ToString();
         }
 
+        public  List<Prevision> GetAllPrevision()
+        {
+            return previsions;
+        }
 
     }
 }

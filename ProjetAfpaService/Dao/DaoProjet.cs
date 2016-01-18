@@ -17,6 +17,7 @@ namespace ProjetAfpaService.Dao
         // cette classe n'existe que pour accéder aux données
 
         private static List<ProjetForfait> Projets;
+        //private static List<Projet> Projet;
        
 
         private static List<Client> Clients;	
@@ -84,6 +85,16 @@ namespace ProjetAfpaService.Dao
         {
             return Projets;
         }
+
+        public static List<Qualification> GetAllQualification()
+        {
+            return Qualifications;
+        }
+
+        //public static List<Projet> GetAllProject(string typeName)
+        //{
+        //    return Projet.Where()
+        //}
 
     }
 }

@@ -23,6 +23,11 @@ namespace ProjetAfpaService.Metier
             PvJournee = initPvJournee;
         }
 
+
+        public Qualification Self
+        {
+            get { return this; }
+        }
         //public override string ToString()
         //{
         //    return 
