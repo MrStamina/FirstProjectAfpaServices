@@ -116,6 +116,7 @@
             this.buttonSupprimer.TabIndex = 18;
             this.buttonSupprimer.Text = "Supprimer";
             this.buttonSupprimer.UseVisualStyleBackColor = true;
+            this.buttonSupprimer.Click += new System.EventHandler(this.buttonSupprimer_Click);
             // 
             // buttonAnnuler
             // 
@@ -125,6 +126,7 @@
             this.buttonAnnuler.TabIndex = 17;
             this.buttonAnnuler.Text = "Annuler";
             this.buttonAnnuler.UseVisualStyleBackColor = true;
+            this.buttonAnnuler.Click += new System.EventHandler(this.buttonAnnuler_Click);
             // 
             // buttonModifier
             // 
@@ -146,10 +148,6 @@
             this.maskedTextBoxDateFin.TabIndex = 2;
             this.maskedTextBoxDateFin.ValidatingType = typeof(System.DateTime);
             this.maskedTextBoxDateFin.Validating += new System.ComponentModel.CancelEventHandler(this.maskedTextBoxDateFin_Validating);
-            // 
-            // projetForfaitBindingSource
-            // 
-            this.projetForfaitBindingSource.DataSource = typeof(ProjetAfpaService.Metier.ProjetForfait);
             // 
             // maskedTextBoxDateDebut
             // 
@@ -249,6 +247,7 @@
             this.textBoxMailContact.Size = new System.Drawing.Size(146, 20);
             this.textBoxMailContact.TabIndex = 5;
             this.textBoxMailContact.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxMailContact_Validating);
+            this.textBoxMailContact.Validated += new System.EventHandler(this.textBoxMailContact_Validated);
             // 
             // textBoxNomProjet
             // 
@@ -404,7 +403,6 @@
             this.comboBoxNomProjet.Name = "comboBoxNomProjet";
             this.comboBoxNomProjet.Size = new System.Drawing.Size(145, 21);
             this.comboBoxNomProjet.TabIndex = 0;
-            this.comboBoxNomProjet.ValueMember = "CodeClient";
             this.comboBoxNomProjet.SelectedIndexChanged += new System.EventHandler(this.comboBoxNomProjet_SelectedIndexChanged);
             // 
             // labelNomProjet2

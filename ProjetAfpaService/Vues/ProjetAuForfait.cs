@@ -25,8 +25,9 @@ namespace ProjetAfpaService
         {
             InitializeComponent();
         }
-      
-       // Controle de la saisie des informations
+
+        // Controle de la saisie des informations
+        #region Gestion de la saisie des informations
         private void textBoxNomProjet_Validating(object sender, CancelEventArgs e)
         {
             if(textBoxNomProjet.Text == string.Empty)
@@ -103,6 +104,11 @@ namespace ProjetAfpaService
             }
         }
 
+        private void textBoxMailContact_Validated(object sender, EventArgs e)
+        {
+            textBoxMontantContrat.Focus();
+        }
+
         private void textBoxMontantContrat_Validating(object sender, CancelEventArgs e)
         {
             if (textBoxMontantContrat.Text == string.Empty)
@@ -124,6 +130,7 @@ namespace ProjetAfpaService
                 e.Handled = true;
             }
         }
+        #endregion
 
         // On lance le databinding au chargement
         private void Form1_Load(object sender, EventArgs e)
@@ -150,7 +157,18 @@ namespace ProjetAfpaService
                 string message = "Projet" + projet.ToString() + "\n" + "Client" + comboBoxClient.SelectedItem.ToString() + "\n" + textBoxContact.Text + "," + textBoxMailContact.Text + "\n" + "[" + textBoxMontantContrat.Text + "," + "Collaborateur" + comboBoxResponsable.SelectedItem.ToString();
                 MessageBox.Show(message, caption, MessageBoxButtons.OK);
                 DaoProjet.AddProjet(projet);
-                                    
+                comboBoxNomProjet.Enabled = true;
+                
+                //comboBoxNomProjet.SelectedItem = projetForfaitBindingSource.Current;
+                projetForfaitBindingSource.ResumeBinding();
+                comboBoxNomProjet.SelectedItem = null;
+                MethodesUtiles.ChangerEnabledFalse(textBoxNomProjet, maskedTextBoxDateDebut, maskedTextBoxDateFin, comboBoxClient, textBoxContact
+                    , textBoxMailContact, comboBoxResponsable, groupBoxPenalites, textBoxMontantContrat, buttonValider);
+                
+                groupBoxForfait.Visible = false;
+                groupBoxProjet.Visible = false;
+
+
             }
             else
             {
@@ -172,6 +190,7 @@ namespace ProjetAfpaService
         }
 
         // Gestion du bouton Quitter et du FormClosing
+        #region Gestion du bouton Quitter
         private void buttonQuitter_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -186,54 +205,115 @@ namespace ProjetAfpaService
             if (result == DialogResult.No)
                 e.Cancel = true;
         }
+        #endregion
 
         // Gestion de la combobox Nom projet
-        
+
         private void comboBoxNomProjet_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (comboBoxNomProjet.SelectedItem != null)
+            {
+                groupBoxProjet.Visible = true;
+                groupBoxForfait.Visible = true;
+                MethodesUtiles.ChangerEnabledFalse(textBoxNomProjet, maskedTextBoxDateDebut, maskedTextBoxDateFin, comboBoxClient, textBoxContact
+                    , textBoxMailContact, comboBoxResponsable, groupBoxPenalites, textBoxMontantContrat, buttonValider);
+                buttonModifier.Enabled = true;
+                buttonSupprimer.Enabled = true;        
+                buttonCreer.Enabled = false;
+            }
             
-            groupBoxProjet.Visible = true;
-            groupBoxForfait.Visible = true;
-            MethodesUtiles.ChangerEnabledFalse(textBoxNomProjet, maskedTextBoxDateDebut, maskedTextBoxDateFin, comboBoxClient, textBoxContact
-                , textBoxMailContact, comboBoxResponsable, groupBoxPenalites, textBoxMontantContrat, buttonValider);
-            //ChangerEnabledFalse();
 
         }
 
+
         // Méthode pour changer l'Enabled
+        #region Méthode pour changer Enable
+        private void ChangerEnabledTrue()
+        {
+            textBoxNomProjet.Enabled = true;
+            maskedTextBoxDateDebut.Enabled = true;
+            maskedTextBoxDateFin.Enabled = true;
+            comboBoxClient.Enabled = true;
+            textBoxContact.Enabled = true;
+            textBoxMailContact.Enabled = true;
+            comboBoxResponsable.Enabled = true;
+            groupBoxPenalites.Enabled = true;
+            textBoxMontantContrat.Enabled = true;
+            buttonValider.Enabled = false;
+        }
 
+        #endregion
 
-        //private void ChangerEnabledTrue()
-        //{
-        //    textBoxNomProjet.Enabled = true;
-        //    maskedTextBoxDateDebut.Enabled = true;
-        //    maskedTextBoxDateFin.Enabled = true;
-        //    comboBoxClient.Enabled = true;
-        //    textBoxContact.Enabled = true;
-        //    textBoxMailContact.Enabled = true;
-        //    comboBoxResponsable.Enabled = true;
-        //    groupBoxPenalites.Enabled = true;
-        //    textBoxMontantContrat.Enabled = true;
-        //    buttonValider.Enabled = false;
-        //}
 
         // Gestion du click sur le bouton modifier
-        // TODO Pas terminé
-
         private void buttonModifier_Click(object sender, EventArgs e)
         {
-      
-            //MethodesUtiles.EnabledChangeToTrue();
+
+            ChangerEnabledTrue();
             buttonValider.Enabled = true;
         }
 
         // Gestion du click sur le bouton créer
-        // TODO Créer une méthode qui clear toutes les boxs sauf client et collabos ou chercher comment reinitialiser le tout
+        
         private void buttonCreer_Click(object sender, EventArgs e)
         {
+            InitDatabinding(true);
             groupBoxForfait.Visible = true;
             groupBoxProjet.Visible = true;
+            ChangerEnabledTrue();
+            buttonModifier.Enabled = false;
+            buttonSupprimer.Enabled = false;
+            buttonValider.Enabled = true;
+            comboBoxNomProjet.Enabled = false;
+            buttonCreer.Enabled = false;
+            comboBoxClient.SelectedItem = null;
+            comboBoxResponsable.SelectedItem = null;
+    
+
            
         }
+
+        // gestion du databinding
+        private void InitDatabinding(bool enable)
+        {
+            if(enable)
+            {
+                projetForfaitBindingSource.SuspendBinding();
+            }
+            else if(!enable)
+            {
+                projetForfaitBindingSource.ResumeBinding();
+            }
+        }
+
+        // Gestion du bouton annuler
+        private void buttonAnnuler_Click(object sender, EventArgs e)
+        {
+            groupBoxForfait.Visible = false;
+            groupBoxProjet.Visible = false;
+            comboBoxNomProjet.SelectedItem = null;
+            buttonCreer.Enabled = true;
+        }
+
+        // Gestion du boutton supprimer
+        private void buttonSupprimer_Click(object sender, EventArgs e)
+        {
+            if(comboBoxNomProjet.SelectedIndex >= 0)
+            {
+                string message = "Etes-vous sûr de vouloir supprimer";
+                string caption = "Suppression d'un projet";
+                var result = MessageBox.Show(message, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if(result == DialogResult.Yes)
+                {
+                    projetForfaitBindingSource.Remove(comboBoxNomProjet.SelectedItem);
+                    projetForfaitBindingSource.ResetBindings(true);
+                }
+            }
+            comboBoxNomProjet.SelectedItem = null;
+            groupBoxProjet.Visible = false;
+            groupBoxForfait.Visible = false;
+        }
+
+       
     }
 }
