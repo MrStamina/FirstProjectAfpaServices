@@ -48,7 +48,6 @@
             this.textBoxMailContact = new System.Windows.Forms.TextBox();
             this.textBoxNomProjet = new System.Windows.Forms.TextBox();
             this.buttonValider = new System.Windows.Forms.Button();
-            this.projetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.groupBoxForfait = new System.Windows.Forms.GroupBox();
             this.labelResponsable = new System.Windows.Forms.Label();
@@ -68,10 +67,12 @@
             this.comboBoxNomProjet = new System.Windows.Forms.ComboBox();
             this.labelNomProjet2 = new System.Windows.Forms.Label();
             this.buttonCreer = new System.Windows.Forms.Button();
+            this.projetBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.errorProviderClient = new System.Windows.Forms.ErrorProvider(this.components);
+            this.errorProviderCollaborateur = new System.Windows.Forms.ErrorProvider(this.components);
             this.groupBoxProjet.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.projetForfaitBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.clientBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.projetBindingSource)).BeginInit();
             this.groupBoxForfait.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.collaborateurBindingSource)).BeginInit();
             this.groupBoxPenalites.SuspendLayout();
@@ -80,6 +81,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.errorProviderDateDebut)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProviderMailAdress)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProviderMontant)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.projetBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProviderClient)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProviderCollaborateur)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxProjet
@@ -140,7 +144,7 @@
             // 
             // maskedTextBoxDateFin
             // 
-            this.maskedTextBoxDateFin.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projetForfaitBindingSource, "DFin", true));
+            this.maskedTextBoxDateFin.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projetForfaitBindingSource, "DFin", true, System.Windows.Forms.DataSourceUpdateMode.Never));
             this.maskedTextBoxDateFin.Location = new System.Drawing.Point(157, 93);
             this.maskedTextBoxDateFin.Mask = "00/00/0000";
             this.maskedTextBoxDateFin.Name = "maskedTextBoxDateFin";
@@ -151,7 +155,7 @@
             // 
             // maskedTextBoxDateDebut
             // 
-            this.maskedTextBoxDateDebut.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projetForfaitBindingSource, "DDebut", true));
+            this.maskedTextBoxDateDebut.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projetForfaitBindingSource, "DDebut", true, System.Windows.Forms.DataSourceUpdateMode.Never));
             this.maskedTextBoxDateDebut.Location = new System.Drawing.Point(158, 67);
             this.maskedTextBoxDateDebut.Mask = "00/00/0000";
             this.maskedTextBoxDateDebut.Name = "maskedTextBoxDateDebut";
@@ -216,7 +220,7 @@
             // 
             // comboBoxClient
             // 
-            this.comboBoxClient.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.projetForfaitBindingSource, "LeClient", true));
+            this.comboBoxClient.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.projetForfaitBindingSource, "LeClient", true, System.Windows.Forms.DataSourceUpdateMode.Never));
             this.comboBoxClient.DataSource = this.clientBindingSource;
             this.comboBoxClient.DisplayMember = "RaisonSociale";
             this.comboBoxClient.FormattingEnabled = true;
@@ -232,7 +236,7 @@
             // 
             // textBoxContact
             // 
-            this.textBoxContact.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projetForfaitBindingSource, "Contact", true));
+            this.textBoxContact.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projetForfaitBindingSource, "Contact", true, System.Windows.Forms.DataSourceUpdateMode.Never));
             this.textBoxContact.Location = new System.Drawing.Point(158, 145);
             this.textBoxContact.Name = "textBoxContact";
             this.textBoxContact.Size = new System.Drawing.Size(146, 20);
@@ -241,7 +245,7 @@
             // 
             // textBoxMailContact
             // 
-            this.textBoxMailContact.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projetForfaitBindingSource, "MailContact", true));
+            this.textBoxMailContact.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projetForfaitBindingSource, "MailContact", true, System.Windows.Forms.DataSourceUpdateMode.Never));
             this.textBoxMailContact.Location = new System.Drawing.Point(158, 171);
             this.textBoxMailContact.Name = "textBoxMailContact";
             this.textBoxMailContact.Size = new System.Drawing.Size(146, 20);
@@ -251,7 +255,7 @@
             // 
             // textBoxNomProjet
             // 
-            this.textBoxNomProjet.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projetForfaitBindingSource, "NomProjet", true));
+            this.textBoxNomProjet.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projetForfaitBindingSource, "NomProjet", true, System.Windows.Forms.DataSourceUpdateMode.Never));
             this.textBoxNomProjet.Location = new System.Drawing.Point(158, 41);
             this.textBoxNomProjet.Name = "textBoxNomProjet";
             this.textBoxNomProjet.Size = new System.Drawing.Size(146, 20);
@@ -267,10 +271,6 @@
             this.buttonValider.Text = "Valider";
             this.buttonValider.UseVisualStyleBackColor = true;
             this.buttonValider.Click += new System.EventHandler(this.buttonValider_Click);
-            // 
-            // projetBindingSource
-            // 
-            this.projetBindingSource.DataSource = typeof(ProjetAfpaService.Metier.Projet);
             // 
             // groupBoxForfait
             // 
@@ -307,7 +307,7 @@
             // 
             // comboBoxResponsable
             // 
-            this.comboBoxResponsable.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.projetForfaitBindingSource, "ChefDeProjet", true));
+            this.comboBoxResponsable.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.projetForfaitBindingSource, "ChefDeProjet", true, System.Windows.Forms.DataSourceUpdateMode.Never));
             this.comboBoxResponsable.DataSource = this.collaborateurBindingSource;
             this.comboBoxResponsable.DisplayMember = "Nom";
             this.comboBoxResponsable.FormattingEnabled = true;
@@ -322,7 +322,7 @@
             // 
             // textBoxMontantContrat
             // 
-            this.textBoxMontantContrat.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projetForfaitBindingSource, "MontantContrat", true));
+            this.textBoxMontantContrat.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projetForfaitBindingSource, "MontantContrat", true, System.Windows.Forms.DataSourceUpdateMode.Never));
             this.textBoxMontantContrat.Location = new System.Drawing.Point(158, 19);
             this.textBoxMontantContrat.Name = "textBoxMontantContrat";
             this.textBoxMontantContrat.Size = new System.Drawing.Size(146, 20);
@@ -424,6 +424,18 @@
             this.buttonCreer.UseVisualStyleBackColor = true;
             this.buttonCreer.Click += new System.EventHandler(this.buttonCreer_Click);
             // 
+            // projetBindingSource
+            // 
+            this.projetBindingSource.DataSource = typeof(ProjetAfpaService.Metier.Projet);
+            // 
+            // errorProviderClient
+            // 
+            this.errorProviderClient.ContainerControl = this;
+            // 
+            // errorProviderCollaborateur
+            // 
+            this.errorProviderCollaborateur.ContainerControl = this;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -444,7 +456,6 @@
             this.groupBoxProjet.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.projetForfaitBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.clientBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.projetBindingSource)).EndInit();
             this.groupBoxForfait.ResumeLayout(false);
             this.groupBoxForfait.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.collaborateurBindingSource)).EndInit();
@@ -455,6 +466,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.errorProviderDateDebut)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProviderMailAdress)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProviderMontant)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.projetBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProviderClient)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProviderCollaborateur)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -500,6 +514,8 @@
         private System.Windows.Forms.Button buttonAnnuler;
         private System.Windows.Forms.Button buttonModifier;
         private System.Windows.Forms.BindingSource projetForfaitBindingSource;
+        private System.Windows.Forms.ErrorProvider errorProviderClient;
+        private System.Windows.Forms.ErrorProvider errorProviderCollaborateur;
     }
 }
 

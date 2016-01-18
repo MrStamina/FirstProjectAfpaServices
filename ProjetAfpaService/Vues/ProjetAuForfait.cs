@@ -24,6 +24,8 @@ namespace ProjetAfpaService
         public Form1()
         {
             InitializeComponent();
+            this.CancelButton = buttonAnnuler;
+            
         }
 
         // Controle de la saisie des informations
@@ -150,7 +152,7 @@ namespace ProjetAfpaService
             Random random = new Random();
             int codeProjet = random.Next(1, 100);
 
-            if (nomProjet == true && dateIsOk == true && montantIsOk == true)
+            if (nomProjet == true && dateIsOk == true && montantIsOk == true && comboBoxResponsable.SelectedItem != null && comboBoxClient != null)
             {
                 ProjetForfait projet = new ProjetForfait(codeProjet, textBoxNomProjet.Text, dateDebut, dateFin, (Client)comboBoxClient.SelectedItem, textBoxContact.Text, textBoxMailContact.Text, Convert.ToDecimal(textBoxMontantContrat.Text),(Collaborateur)comboBoxResponsable.SelectedItem);
                 const string caption = "Projet enregistré";
@@ -185,6 +187,14 @@ namespace ProjetAfpaService
                 {
                     errorProviderMontant.SetError(textBoxMontantContrat, "Le montant du contrat est obligatoire pour créer un projet");
                 }
+                if(comboBoxClient.SelectedItem == null)
+                {
+                    errorProviderClient.SetError(comboBoxClient, "Veuillez selectionner un client");
+                }
+                if(comboBoxResponsable.SelectedItem == null)
+                {
+                    errorProviderClient.SetError(comboBoxResponsable, "Veuillez selectionner un responsable");
+                }
             }
 
         }
@@ -211,8 +221,10 @@ namespace ProjetAfpaService
 
         private void comboBoxNomProjet_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //projetForfaitBindingSource.ResumeBinding();
             if (comboBoxNomProjet.SelectedItem != null)
             {
+                
                 groupBoxProjet.Visible = true;
                 groupBoxForfait.Visible = true;
                 MethodesUtiles.ChangerEnabledFalse(textBoxNomProjet, maskedTextBoxDateDebut, maskedTextBoxDateFin, comboBoxClient, textBoxContact
@@ -287,12 +299,19 @@ namespace ProjetAfpaService
         }
 
         // Gestion du bouton annuler
+
+        
         private void buttonAnnuler_Click(object sender, EventArgs e)
         {
+
+            projetForfaitBindingSource.ResetCurrentItem();
             groupBoxForfait.Visible = false;
             groupBoxProjet.Visible = false;
             comboBoxNomProjet.SelectedItem = null;
             buttonCreer.Enabled = true;
+
+
+            
         }
 
         // Gestion du boutton supprimer
