@@ -91,6 +91,8 @@ namespace ProjetAfpaService.Dao
             return Qualifications;
         }
 
+        
+
         //public static List<Projet> GetAllProject(string typeName)
         //{
         //    return Projet.Where()

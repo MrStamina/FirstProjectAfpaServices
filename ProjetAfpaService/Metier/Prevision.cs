@@ -12,7 +12,7 @@ namespace ProjetAfpaService.Metier
         public short NbJours { get; set; }
 
 
-        public Prevision (Qualification initLaQualif, short initNbJours)
+        public Prevision(Qualification initLaQualif, short initNbJours)
         {
             LaQualif = initLaQualif;
             NbJours = initNbJours;

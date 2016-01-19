@@ -1,6 +1,6 @@
 ﻿namespace ProjetAfpaService.Vues
 {
-    partial class Prevision
+    partial class FrmPrevisions
     {
         /// <summary>
         /// Required designer variable.
@@ -45,6 +45,7 @@
             this.buttonAnnuler = new System.Windows.Forms.Button();
             this.buttonValider = new System.Windows.Forms.Button();
             this.comboBoxQualification = new System.Windows.Forms.ComboBox();
+            this.buttonQuitter = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPrevisions)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.qualificationBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.previsionBindingSource)).BeginInit();
@@ -93,6 +94,7 @@
             this.Modifier.HeaderText = "";
             this.Modifier.Name = "Modifier";
             this.Modifier.ReadOnly = true;
+            this.Modifier.Text = "Modifier";
             this.Modifier.UseColumnTextForButtonValue = true;
             // 
             // Supprimer
@@ -100,6 +102,7 @@
             this.Supprimer.HeaderText = "";
             this.Supprimer.Name = "Supprimer";
             this.Supprimer.ReadOnly = true;
+            this.Supprimer.Text = "Supprimer";
             this.Supprimer.UseColumnTextForButtonValue = true;
             // 
             // previsionBindingSource
@@ -133,6 +136,7 @@
             // 
             // buttonCreer
             // 
+            this.buttonCreer.Enabled = false;
             this.buttonCreer.Location = new System.Drawing.Point(29, 256);
             this.buttonCreer.Name = "buttonCreer";
             this.buttonCreer.Size = new System.Drawing.Size(99, 27);
@@ -169,6 +173,7 @@
             this.buttonAnnuler.TabIndex = 4;
             this.buttonAnnuler.Text = "Annuler";
             this.buttonAnnuler.UseVisualStyleBackColor = true;
+            this.buttonAnnuler.Click += new System.EventHandler(this.buttonAnnuler_Click);
             // 
             // buttonValider
             // 
@@ -178,6 +183,7 @@
             this.buttonValider.TabIndex = 3;
             this.buttonValider.Text = "Valider";
             this.buttonValider.UseVisualStyleBackColor = true;
+            this.buttonValider.Click += new System.EventHandler(this.buttonValider_Click);
             // 
             // comboBoxQualification
             // 
@@ -192,11 +198,23 @@
             this.comboBoxQualification.Size = new System.Drawing.Size(117, 21);
             this.comboBoxQualification.TabIndex = 1;
             // 
+            // buttonQuitter
+            // 
+            this.buttonQuitter.Location = new System.Drawing.Point(541, 21);
+            this.buttonQuitter.Name = "buttonQuitter";
+            this.buttonQuitter.Size = new System.Drawing.Size(99, 27);
+            this.buttonQuitter.TabIndex = 4;
+            this.buttonQuitter.Text = "Quitter";
+            this.buttonQuitter.UseVisualStyleBackColor = true;
+            this.buttonQuitter.Click += new System.EventHandler(this.buttonQuitter_Click);
+            // 
             // Prevision
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(668, 495);
+            this.ControlBox = false;
+            this.Controls.Add(this.buttonQuitter);
             this.Controls.Add(this.groupBoxPrevision);
             this.Controls.Add(this.buttonCreer);
             this.Controls.Add(this.labelProjet);
@@ -204,6 +222,7 @@
             this.Controls.Add(this.dataGridViewPrevisions);
             this.Name = "Prevision";
             this.Text = "Prevision";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Prevision_FormClosing);
             this.Load += new System.EventHandler(this.Prevision_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPrevisions)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.qualificationBindingSource)).EndInit();
@@ -227,10 +246,11 @@
         private System.Windows.Forms.NumericUpDown numericUpDownNbJours;
         private System.Windows.Forms.Button buttonAnnuler;
         private System.Windows.Forms.Button buttonValider;
+        private System.Windows.Forms.BindingSource projetForfaitBindingSource;
         private System.Windows.Forms.DataGridViewComboBoxColumn laQualifDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn nbJoursDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewButtonColumn Modifier;
         private System.Windows.Forms.DataGridViewButtonColumn Supprimer;
-        private System.Windows.Forms.BindingSource projetForfaitBindingSource;
+        private System.Windows.Forms.Button buttonQuitter;
     }
 }

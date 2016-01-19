@@ -67,11 +67,11 @@
   <ItemGroup>
     <Compile Include="Dao\DaoProjet.cs" />
     <Compile Include="Utilitaires\MéthodesUtiles.cs" />
-    <Compile Include="Vues\Prevision.cs">
+    <Compile Include="Vues\FrmPrevisions.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Vues\Prevision.Designer.cs">
-      <DependentUpon>Prevision.cs</DependentUpon>
+    <Compile Include="Vues\FrmPrevisions.Designer.cs">
+      <DependentUpon>FrmPrevisions.cs</DependentUpon>
     </Compile>
     <Compile Include="Vues\ProjetAuForfait.cs">
       <SubType>Form</SubType>
@@ -98,8 +98,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Vues\Prevision.resx">
-      <DependentUpon>Prevision.cs</DependentUpon>
+    <EmbeddedResource Include="Vues\FrmPrevisions.resx">
+      <DependentUpon>FrmPrevisions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Vues\ProjetAuForfait.resx">
       <DependentUpon>ProjetAuForfait.cs</DependentUpon>

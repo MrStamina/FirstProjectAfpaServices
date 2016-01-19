@@ -70,6 +70,11 @@ namespace ProjetAfpaService.Metier
             return previsions;
         }
 
+        public  bool AddPrevision(Prevision prev)
+        {
+            previsions.Add(prev);
+            return true;
+        }
     }
 }
 

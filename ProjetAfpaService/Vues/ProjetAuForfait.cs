@@ -309,9 +309,7 @@ namespace ProjetAfpaService
             groupBoxProjet.Visible = false;
             comboBoxNomProjet.SelectedItem = null;
             buttonCreer.Enabled = true;
-
-
-            
+                     
         }
 
         // Gestion du boutton supprimer
@@ -332,6 +330,7 @@ namespace ProjetAfpaService
             groupBoxProjet.Visible = false;
             groupBoxForfait.Visible = false;
         }
+
 
        
     }
