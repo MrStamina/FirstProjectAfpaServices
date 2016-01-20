@@ -160,8 +160,7 @@ namespace ProjetAfpaService
                 MessageBox.Show(message, caption, MessageBoxButtons.OK);
                 DaoProjet.AddProjet(projet);
                 comboBoxNomProjet.Enabled = true;
-                
-                //comboBoxNomProjet.SelectedItem = projetForfaitBindingSource.Current;
+                              
                 projetForfaitBindingSource.ResumeBinding();
                 comboBoxNomProjet.SelectedItem = null;
                 MethodesUtiles.ChangerEnabledFalse(textBoxNomProjet, maskedTextBoxDateDebut, maskedTextBoxDateFin, comboBoxClient, textBoxContact

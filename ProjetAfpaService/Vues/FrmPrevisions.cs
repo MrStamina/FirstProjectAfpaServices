@@ -81,11 +81,16 @@ namespace ProjetAfpaService.Vues
             }
             else if(buttonValiderModifClick)
             {
-
+                DaoProjet.GetAllProject()[comboBoxProjet.SelectedIndex].AddPrevision(new Prevision((Qualification)comboBoxQualification.SelectedItem, (short)numericUpDownNbJours.Value));
+                previsionBindingSource.DataSource = DaoProjet.GetAllProject()[comboBoxProjet.SelectedIndex].GetAllPrevision();
+                previsionBindingSource.RemoveAt(dataGridViewPrevisions.CurrentRow.Index);
+                previsionBindingSource.ResetBindings(true);
+                
             }
+            groupBoxPrevision.Visible = false;
         }
 
-        
+        #region Gestion du bouton Modifier et Supprimer
         private void dataGridViewPrevisions_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             
@@ -99,9 +104,17 @@ namespace ProjetAfpaService.Vues
             }
             else if(e.ColumnIndex == dataGridViewPrevisions.Columns["Supprimer"].Index && e.RowIndex >=0)
             {
-
+                string message = "Etes-vous sûr de vouloir supprimer";
+                string caption = "Suppression d'une prévision";
+                var result = MessageBox.Show(message, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {  
+                    previsionBindingSource.RemoveAt(dataGridViewPrevisions.CurrentRow.Index);
+                    previsionBindingSource.ResetBindings(true);
+                }
             }
         }
-        //TODO Gerer le bouton supprimer et gere le fait que ca se rajoute au lieu de se modifier
+        #endregion
+
     }
 }
