@@ -23,6 +23,7 @@ namespace ProjetAfpaService.Dao
         private static List<Client> Clients;	
         private static List<Collaborateur> Collaborateurs;	
         private static List<Qualification> Qualifications;
+       
 
 
         public static void Init()

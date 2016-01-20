@@ -7,6 +7,7 @@ namespace ProjetAfpaService.Vues
 {
     public partial class FrmPrevisions : Form
     {
+        bool buttonValiderModifClick;
         public FrmPrevisions()
         {
             InitializeComponent();
@@ -71,13 +72,36 @@ namespace ProjetAfpaService.Vues
 
         private void buttonValider_Click(object sender, EventArgs e)
         {
-            if (comboBoxQualification.SelectedItem != null && numericUpDownNbJours.Value > 0)
+            if (!buttonValiderModifClick &&comboBoxQualification.SelectedItem != null && numericUpDownNbJours.Value > 0)
             {
                 DaoProjet.GetAllProject()[comboBoxProjet.SelectedIndex].AddPrevision(new Prevision((Qualification)comboBoxQualification.SelectedItem, (short)numericUpDownNbJours.Value));
                 previsionBindingSource.DataSource = DaoProjet.GetAllProject()[comboBoxProjet.SelectedIndex].GetAllPrevision();
                 previsionBindingSource.ResetBindings(true);
 
             }
+            else if(buttonValiderModifClick)
+            {
+
+            }
         }
+
+        
+        private void dataGridViewPrevisions_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            
+            if (e.ColumnIndex == dataGridViewPrevisions.Columns["Modifier"].Index && e.RowIndex >=0)
+            {
+                Prevision p = (Prevision)dataGridViewPrevisions.CurrentRow.DataBoundItem;
+                groupBoxPrevision.Visible = true;
+                comboBoxQualification.SelectedItem = p.LaQualif;
+                numericUpDownNbJours.Value = p.NbJours;
+                buttonValiderModifClick = true;
+            }
+            else if(e.ColumnIndex == dataGridViewPrevisions.Columns["Supprimer"].Index && e.RowIndex >=0)
+            {
+
+            }
+        }
+        //TODO Gerer le bouton supprimer et gere le fait que ca se rajoute au lieu de se modifier
     }
 }

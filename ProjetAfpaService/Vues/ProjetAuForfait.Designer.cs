@@ -257,6 +257,7 @@
             // 
             this.textBoxNomProjet.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projetForfaitBindingSource, "NomProjet", true, System.Windows.Forms.DataSourceUpdateMode.Never));
             this.textBoxNomProjet.Location = new System.Drawing.Point(158, 41);
+            this.textBoxNomProjet.MaxLength = 30;
             this.textBoxNomProjet.Name = "textBoxNomProjet";
             this.textBoxNomProjet.Size = new System.Drawing.Size(146, 20);
             this.textBoxNomProjet.TabIndex = 0;

@@ -71,16 +71,23 @@
             this.dataGridViewPrevisions.ReadOnly = true;
             this.dataGridViewPrevisions.Size = new System.Drawing.Size(611, 142);
             this.dataGridViewPrevisions.TabIndex = 0;
+            this.dataGridViewPrevisions.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewPrevisions_CellContentClick);
             // 
             // laQualifDataGridViewTextBoxColumn
             // 
             this.laQualifDataGridViewTextBoxColumn.DataPropertyName = "LaQualif";
             this.laQualifDataGridViewTextBoxColumn.DataSource = this.qualificationBindingSource;
+            this.laQualifDataGridViewTextBoxColumn.DisplayMember = "Libelle";
             this.laQualifDataGridViewTextBoxColumn.HeaderText = "LaQualif";
             this.laQualifDataGridViewTextBoxColumn.Name = "laQualifDataGridViewTextBoxColumn";
             this.laQualifDataGridViewTextBoxColumn.ReadOnly = true;
             this.laQualifDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.laQualifDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.laQualifDataGridViewTextBoxColumn.ValueMember = "Self";
+            // 
+            // qualificationBindingSource
+            // 
+            this.qualificationBindingSource.DataSource = typeof(ProjetAfpaService.Metier.Qualification);
             // 
             // nbJoursDataGridViewTextBoxColumn
             // 
@@ -161,6 +168,11 @@
             // numericUpDownNbJours
             // 
             this.numericUpDownNbJours.Location = new System.Drawing.Point(179, 20);
+            this.numericUpDownNbJours.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
             this.numericUpDownNbJours.Name = "numericUpDownNbJours";
             this.numericUpDownNbJours.Size = new System.Drawing.Size(116, 20);
             this.numericUpDownNbJours.TabIndex = 5;
@@ -208,7 +220,7 @@
             this.buttonQuitter.UseVisualStyleBackColor = true;
             this.buttonQuitter.Click += new System.EventHandler(this.buttonQuitter_Click);
             // 
-            // Prevision
+            // FrmPrevisions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -220,7 +232,7 @@
             this.Controls.Add(this.labelProjet);
             this.Controls.Add(this.comboBoxProjet);
             this.Controls.Add(this.dataGridViewPrevisions);
-            this.Name = "Prevision";
+            this.Name = "FrmPrevisions";
             this.Text = "Prevision";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Prevision_FormClosing);
             this.Load += new System.EventHandler(this.Prevision_Load);
@@ -247,10 +259,10 @@
         private System.Windows.Forms.Button buttonAnnuler;
         private System.Windows.Forms.Button buttonValider;
         private System.Windows.Forms.BindingSource projetForfaitBindingSource;
+        private System.Windows.Forms.Button buttonQuitter;
         private System.Windows.Forms.DataGridViewComboBoxColumn laQualifDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn nbJoursDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewButtonColumn Modifier;
         private System.Windows.Forms.DataGridViewButtonColumn Supprimer;
-        private System.Windows.Forms.Button buttonQuitter;
     }
 }
