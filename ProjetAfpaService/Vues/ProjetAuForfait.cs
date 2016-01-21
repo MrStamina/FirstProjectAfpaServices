@@ -137,9 +137,11 @@ namespace ProjetAfpaService
         // On lance le databinding au chargement
         private void Form1_Load(object sender, EventArgs e)
         {
+
+
+            projetForfaitBindingSource.DataSource = DaoProjet.GetAllProject();
             clientBindingSource.DataSource = DaoProjet.GetAllclients();
             collaborateurBindingSource.DataSource = DaoProjet.GetAllCollaborateurs();
-            projetForfaitBindingSource.DataSource = DaoProjet.GetAllProject();
             comboBoxNomProjet.SelectedItem = null;
             groupBoxProjet.Visible = false;
             groupBoxForfait.Visible = false;
@@ -329,7 +331,6 @@ namespace ProjetAfpaService
             groupBoxProjet.Visible = false;
             groupBoxForfait.Visible = false;
         }
-
 
        
     }

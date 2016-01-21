@@ -32,9 +32,9 @@ namespace ProjetAfpaService.Metier
         //{
         //    return 
         //}
-        //public override bool Equals(object obj)
-        //{
-        //    return base.Equals(obj);
-        //}
+        public override bool Equals(Object other)
+        {
+            return other is Qualification && CodeQualif == ((Qualification)other).CodeQualif;
+        }
     }
 }

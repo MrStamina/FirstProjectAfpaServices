@@ -66,6 +66,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dao\DaoProjet.cs" />
+    <Compile Include="Exceptions\DAOException.cs" />
+    <Compile Include="Exceptions\DAOExceptionAfficheMessage.cs" />
+    <Compile Include="Exceptions\DAOExceptionFinApplication.cs" />
     <Compile Include="Utilitaires\MéthodesUtiles.cs" />
     <Compile Include="Vues\FrmPrevisions.cs">
       <SubType>Form</SubType>

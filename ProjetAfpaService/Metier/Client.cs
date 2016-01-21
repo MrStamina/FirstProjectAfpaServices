@@ -17,6 +17,11 @@ namespace ProjetAfpaService.Metier
         public string Telephone { get; set; }
         public string Mail { get; set; }
 
+        public Client()
+        {
+
+        }
+
         public Client(int initCodeClient, string initRaisonSociale, string initAdresse1, string initAdresse2, string initCodePostal, string initVille, string initTelephone, string initMail)
         {
             CodeClient = initCodeClient;
@@ -35,5 +40,13 @@ namespace ProjetAfpaService.Metier
         {
             return "[" + RaisonSociale + "," + Adresse1 + "," + Adresse2 + "," + CP + "," + Telephone +  "]";
         }
+
+       
+      
+        public override bool Equals(Object other)
+        {
+            return other is Client && CodeClient == ((Client)other).CodeClient;
+        }
+    
     }
 }

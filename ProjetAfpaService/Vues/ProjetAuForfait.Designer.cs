@@ -228,7 +228,6 @@
             this.comboBoxClient.Name = "comboBoxClient";
             this.comboBoxClient.Size = new System.Drawing.Size(145, 21);
             this.comboBoxClient.TabIndex = 3;
-            this.comboBoxClient.ValueMember = "CodeClient";
             // 
             // clientBindingSource
             // 

@@ -13,7 +13,10 @@ namespace ProjetAfpaService.Metier
         private List<Prevision> previsions;
 
         
+        public ProjetForfait()
+        {
 
+        }
         public ProjetForfait(int initCodeProjet, string initNomProjet, DateTime initDdebut, DateTime initDfin, Client initLeCLient, string initContact, string initMailContact, decimal initMontantContrat, Penalite initPenaliteOuinon, Collaborateur initChefDeProjet, List<Prevision> initPrevisions)
         {
             CodeProjet = initCodeProjet;

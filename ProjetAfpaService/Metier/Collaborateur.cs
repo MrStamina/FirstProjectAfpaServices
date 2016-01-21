@@ -15,6 +15,11 @@ namespace ProjetAfpaService.Metier
         public decimal PrJournalier { get; set; }
         public Qualification LaQualif { get; set; }
 
+        public Collaborateur()
+        {
+
+        }
+
         public Collaborateur(int initCodeColl, string initNom, string initPrenom, DateTime initDembauche, decimal initPrJournalier, Qualification initLaQualif)
         {
             CodeColl = initCodeColl;

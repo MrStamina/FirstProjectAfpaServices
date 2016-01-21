@@ -8,6 +8,7 @@ namespace ProjetAfpaService.Vues
     public partial class FrmPrevisions : Form
     {
         bool buttonValiderModifClick;
+       
         public FrmPrevisions()
         {
             InitializeComponent();
@@ -16,7 +17,7 @@ namespace ProjetAfpaService.Vues
         // Gestion du chargement des bindings
         private void Prevision_Load(object sender, EventArgs e)
         {
-            qualificationBindingSource.DataSource = DaoProjet.GetAllQualification();
+            //qualificationBindingSource.DataSource = DaoProjet.GetAllQualification();
             projetForfaitBindingSource.DataSource = DaoProjet.GetAllProject();
             comboBoxProjet.SelectedItem = null;
             groupBoxPrevision.Visible = false;
@@ -81,9 +82,10 @@ namespace ProjetAfpaService.Vues
             }
             else if(buttonValiderModifClick)
             {
-                DaoProjet.GetAllProject()[comboBoxProjet.SelectedIndex].AddPrevision(new Prevision((Qualification)comboBoxQualification.SelectedItem, (short)numericUpDownNbJours.Value));
-                previsionBindingSource.DataSource = DaoProjet.GetAllProject()[comboBoxProjet.SelectedIndex].GetAllPrevision();
-                previsionBindingSource.RemoveAt(dataGridViewPrevisions.CurrentRow.Index);
+                
+                ((Prevision)laQualifDataGridViewTextBoxColumn.DataGridView.CurrentRow.DataBoundItem).LaQualif = (Qualification)comboBoxQualification.SelectedItem;
+                Prevision p = (Prevision)dataGridViewPrevisions.CurrentRow.DataBoundItem;
+                p.NbJours = Convert.ToInt16(numericUpDownNbJours.Value);
                 previsionBindingSource.ResetBindings(true);
                 
             }
