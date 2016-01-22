@@ -58,6 +58,7 @@
             this.groupBoxPenalites = new System.Windows.Forms.GroupBox();
             this.radioButtonOui = new System.Windows.Forms.RadioButton();
             this.radioButtonNon = new System.Windows.Forms.RadioButton();
+            this.projetForfaitBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.buttonQuitter = new System.Windows.Forms.Button();
             this.errorProviderNomProjet = new System.Windows.Forms.ErrorProvider(this.components);
             this.errorProviderDateFin = new System.Windows.Forms.ErrorProvider(this.components);
@@ -76,6 +77,7 @@
             this.groupBoxForfait.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.collaborateurBindingSource)).BeginInit();
             this.groupBoxPenalites.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.projetForfaitBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProviderNomProjet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProviderDateFin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProviderDateDebut)).BeginInit();
@@ -348,7 +350,6 @@
             this.radioButtonOui.Name = "radioButtonOui";
             this.radioButtonOui.Size = new System.Drawing.Size(41, 17);
             this.radioButtonOui.TabIndex = 9;
-            this.radioButtonOui.TabStop = true;
             this.radioButtonOui.Text = "Oui";
             this.radioButtonOui.UseVisualStyleBackColor = true;
             // 
@@ -359,9 +360,12 @@
             this.radioButtonNon.Name = "radioButtonNon";
             this.radioButtonNon.Size = new System.Drawing.Size(45, 17);
             this.radioButtonNon.TabIndex = 8;
-            this.radioButtonNon.TabStop = true;
             this.radioButtonNon.Text = "Non";
             this.radioButtonNon.UseVisualStyleBackColor = true;
+            // 
+            // projetForfaitBindingSource1
+            // 
+            this.projetForfaitBindingSource1.DataSource = typeof(ProjetAfpaService.Metier.ProjetForfait);
             // 
             // buttonQuitter
             // 
@@ -461,6 +465,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.collaborateurBindingSource)).EndInit();
             this.groupBoxPenalites.ResumeLayout(false);
             this.groupBoxPenalites.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.projetForfaitBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProviderNomProjet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProviderDateFin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProviderDateDebut)).EndInit();
@@ -516,6 +521,7 @@
         private System.Windows.Forms.BindingSource projetForfaitBindingSource;
         private System.Windows.Forms.ErrorProvider errorProviderClient;
         private System.Windows.Forms.ErrorProvider errorProviderCollaborateur;
+        private System.Windows.Forms.BindingSource projetForfaitBindingSource1;
     }
 }
 

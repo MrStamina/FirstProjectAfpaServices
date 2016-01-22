@@ -168,15 +168,17 @@ namespace ProjetAfpaService.Dao
                 using (SqlCommand sqlCde = new SqlCommand())
                 {
                     sqlCde.Connection = sqlConnect;
-                    string strsql = "Select [idProjet],[nomProjet],[dateDebut],[dateFin],[contactClient],[mailcontact],idClient,[mtContrat], idColl, penaliteOuiNon From Projet  where idTypeP = 1 ";
+                    string strsql = "GetAllProjetForfaits";
 
                     try
                     {
+                        sqlCde.CommandType = CommandType.StoredProcedure;
                         sqlCde.CommandText = strsql;
                         SqlDataReader sqlRdr = sqlCde.ExecuteReader();
                         Projets = new List<ProjetForfait>();
                         while (sqlRdr.Read())
                         {
+                            
                             ProjetForfait projet = new ProjetForfait()
                             {
                                 CodeProjet = sqlRdr.GetInt32(0),
@@ -192,10 +194,10 @@ namespace ProjetAfpaService.Dao
                                 MontantContrat = sqlRdr.GetDecimal(7),
                                 ChefDeProjet = new Collaborateur()
                                 {
-                                    CodeColl = sqlRdr.GetInt32(8)
-                                }
+                                    CodeColl = sqlRdr.GetInt32(9)
+                                },
 
-                                //PenaliteOuiNon = sqlRdr.GetSqlBoolean(9)
+                                PenaliteOuiNon = sqlRdr.GetSqlBoolean(8) == true ? Penalite.Oui : Penalite.Non
                             };
                             Projets.Add(projet);
                         }

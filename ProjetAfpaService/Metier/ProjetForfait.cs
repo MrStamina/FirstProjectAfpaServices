@@ -17,7 +17,7 @@ namespace ProjetAfpaService.Metier
         {
 
         }
-        public ProjetForfait(int initCodeProjet, string initNomProjet, DateTime initDdebut, DateTime initDfin, Client initLeCLient, string initContact, string initMailContact, decimal initMontantContrat, Penalite initPenaliteOuinon, Collaborateur initChefDeProjet, List<Prevision> initPrevisions)
+        public ProjetForfait(int initCodeProjet, string initNomProjet, DateTime initDdebut, DateTime initDfin, Client initLeCLient, string initContact, string initMailContact, decimal initMontantContrat, bool YesNo, Collaborateur initChefDeProjet, List<Prevision> initPrevisions)
         {
             CodeProjet = initCodeProjet;
             NomProjet = initNomProjet;
@@ -27,12 +27,16 @@ namespace ProjetAfpaService.Metier
             Contact = initContact;
             MailContact = initMailContact;
             MontantContrat = initMontantContrat;
-            PenaliteOuiNon = initPenaliteOuinon;
+            if (YesNo == true)
+            {
+                PenaliteOuiNon = Penalite.Oui;
+            }
+            else PenaliteOuiNon = Penalite.Non;
             ChefDeProjet = initChefDeProjet;
             previsions = initPrevisions;
         }
 
-        public ProjetForfait(int initCodeProjet, string initNomProjet, DateTime initDdebut, DateTime initDfin, Client initLeCLient, string initContact, string initMailContact, decimal initMontantContrat, Penalite initPenaliteOuinon, Collaborateur initChefDeProjet)
+        public ProjetForfait(int initCodeProjet, string initNomProjet, DateTime initDdebut, DateTime initDfin, Client initLeCLient, string initContact, string initMailContact, decimal initMontantContrat, bool YesNo, Collaborateur initChefDeProjet)
         {
             CodeProjet = initCodeProjet;
             NomProjet = initNomProjet;
@@ -42,7 +46,11 @@ namespace ProjetAfpaService.Metier
             Contact = initContact;
             MailContact = initMailContact;
             MontantContrat = initMontantContrat;
-            PenaliteOuiNon = initPenaliteOuinon;
+            if (YesNo == true)
+            {
+                PenaliteOuiNon = Penalite.Oui;
+            }
+            else PenaliteOuiNon = Penalite.Non;
             ChefDeProjet = initChefDeProjet;
            
 
