@@ -106,7 +106,7 @@ namespace ProjetAfpaService.Metier
                 }
             }
         }
-        //TODO Faire le getallQualification, comparer idprojet, Codequalif et faire Form(Mère-Fille)
+        //TODO Faire le getallQualification, comparer idprojet, Codequalif et faire Form(Mère-Fille), Mettre dans la DAO
         public  bool AddPrevision(Prevision prev)
         {
             previsions.Add(prev);
