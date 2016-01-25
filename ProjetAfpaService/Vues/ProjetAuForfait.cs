@@ -328,7 +328,7 @@ namespace ProjetAfpaService
         #endregion
 
 
-        // Gestion du click sur le bouton modifier
+        // Gestion du click sur le bouton modifier...
         private void buttonModifier_Click(object sender, EventArgs e)
         {
 
