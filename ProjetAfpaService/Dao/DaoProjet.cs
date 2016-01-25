@@ -29,6 +29,8 @@ namespace ProjetAfpaService.Dao
         private static List<Client> Clients;
         private static List<Collaborateur> Collaborateurs;
         private static List<Qualification> Qualifications;
+     
+
 
 
 
@@ -154,11 +156,130 @@ namespace ProjetAfpaService.Dao
             }
         }
 
-        public static bool AddProjet(ProjetForfait pr)
+        //Ajouter un projet dans la BDD
+        public static bool AddProjet(ProjetForfait pr, out int idProjet)
         {
-            Projets.Add(pr);
-            return true;
+            using (SqlConnection sqlConnect = GetConnection())
+            {
+                using (SqlCommand sqlCde = new SqlCommand())
+                {
+                    sqlCde.Connection = sqlConnect;
+                    string strsql = "AddProjet";
+
+                    try
+                    {
+                        sqlCde.CommandType = CommandType.StoredProcedure;
+                        sqlCde.CommandText = strsql;
+
+                        // Ajout des paramètres
+                        sqlCde.Parameters.Add(new SqlParameter("@idColl", SqlDbType.Int)).Value = pr.ChefDeProjet.CodeColl;
+                        sqlCde.Parameters.Add(new SqlParameter("@IdClient", SqlDbType.Int)).Value = pr.LeClient.CodeClient;
+                        sqlCde.Parameters.Add(new SqlParameter("@IdQualif", SqlDbType.TinyInt)).Value = null;
+                        sqlCde.Parameters.Add(new SqlParameter("@idtypep", SqlDbType.TinyInt)).Value = 1;
+                        sqlCde.Parameters.Add(new SqlParameter("@nomprojet", SqlDbType.VarChar)).Value = pr.NomProjet;
+                        sqlCde.Parameters.Add(new SqlParameter("@ddebut", SqlDbType.Date)).Value = pr.DDebut;
+                        sqlCde.Parameters.Add(new SqlParameter("@dfin", SqlDbType.Date)).Value = pr.DFin;
+                        sqlCde.Parameters.Add(new SqlParameter("@contactclient", SqlDbType.VarChar)).Value = pr.Contact;
+                        sqlCde.Parameters.Add(new SqlParameter("@mailcontact", SqlDbType.VarChar)).Value = pr.MailContact;
+                        sqlCde.Parameters.Add(new SqlParameter("@tarifjournalier", SqlDbType.Money)).Value = null;
+                        sqlCde.Parameters.Add(new SqlParameter("@mtcontrat", SqlDbType.Money)).Value = pr.MontantContrat;
+                        sqlCde.Parameters.Add(new SqlParameter("@penaliteOuiNon", SqlDbType.Bit)).Value = pr.PenaliteOuiNon;
+                        sqlCde.Parameters.Add(new SqlParameter("@idProjet", SqlDbType.Int)).Direction = ParameterDirection.Output;
+
+
+                        // Execution de la commande et recup parametre de sortie
+                        SqlDataReader sqlRdr = sqlCde.ExecuteReader();
+                       idProjet = (int)sqlCde.Parameters["@idProjet"].Value;
+
+                        return true;
+                        
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new DAOException(ex.Message);
+                    }
+                }
+            }
         }
+
+        //Modifier un projet dans la BB
+        public static bool UpdProjet(ProjetForfait pr)
+        {
+            using (SqlConnection sqlConnect = GetConnection())
+            {
+                using (SqlCommand sqlCde = new SqlCommand())
+                {
+                    sqlCde.Connection = sqlConnect;
+                    string strsql = "updProjet";
+
+                    try
+                    {
+                        sqlCde.CommandType = CommandType.StoredProcedure;
+                        sqlCde.CommandText = strsql;
+
+                        sqlCde.Parameters.Add(new SqlParameter("@idp", SqlDbType.Int)).Value = pr.CodeProjet;
+                        sqlCde.Parameters.Add(new SqlParameter("@vColl", SqlDbType.Int)).Value = pr.ChefDeProjet.CodeColl;
+                        sqlCde.Parameters.Add(new SqlParameter("@vClient", SqlDbType.Int)).Value = pr.LeClient.CodeClient;
+                        sqlCde.Parameters.Add(new SqlParameter("@vQualif", SqlDbType.TinyInt)).Value = null;
+                        sqlCde.Parameters.Add(new SqlParameter("@vtypep", SqlDbType.TinyInt)).Value = 1;
+                        sqlCde.Parameters.Add(new SqlParameter("@vnomprojet", SqlDbType.VarChar)).Value = pr.NomProjet;
+                        sqlCde.Parameters.Add(new SqlParameter("@vdatedebut", SqlDbType.Date)).Value = pr.DDebut;
+                        sqlCde.Parameters.Add(new SqlParameter("@vdatefin", SqlDbType.Date)).Value = pr.DFin;
+                        sqlCde.Parameters.Add(new SqlParameter("@vcontactclient", SqlDbType.VarChar)).Value = pr.Contact;
+                        sqlCde.Parameters.Add(new SqlParameter("@vmailcontact", SqlDbType.VarChar)).Value = pr.MailContact;
+                        sqlCde.Parameters.Add(new SqlParameter("@vtarifjournalier", SqlDbType.Money)).Value = null;
+                        sqlCde.Parameters.Add(new SqlParameter("@vmtcontrat", SqlDbType.Money)).Value = pr.MontantContrat;
+                        sqlCde.Parameters.Add(new SqlParameter("@vpenaliteOuiNon", SqlDbType.Bit)).Value = pr.PenaliteOuiNon;
+
+                        //Execution de la commande
+                        int n = sqlCde.ExecuteNonQuery();
+                        if (n == 1)
+                            MessageBox.Show("Mise a jour éffectuée");
+
+                        return true;
+
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new DAOException(ex.Message);
+                    }
+                }
+            }
+        }
+        // Méthode pour supprimer un projet dans la Bdd
+        public static bool DelProjet(Projet pr)
+        {
+            using (SqlConnection sqlConnect = GetConnection())
+            {
+                using (SqlCommand sqlCde = new SqlCommand())
+                {
+                    sqlCde.Connection = sqlConnect;
+                    string strsql = "DelProjet";
+
+                    try
+                    {
+                        sqlCde.CommandType = CommandType.StoredProcedure;
+                        sqlCde.CommandText = strsql;
+
+
+                        sqlCde.Parameters.Add(new SqlParameter("@IdProjet", SqlDbType.Int)).Value = pr.CodeProjet;
+
+                        int n = sqlCde.ExecuteNonQuery();
+                        if (n == 1)
+                            MessageBox.Show("Projet supprimé");
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new DAOException(ex.Message);
+                    }
+
+                }
+            }
+        }
+
+
+
 
         // Parametrage BDD avec la methode GetallProject
         public static List<ProjetForfait> GetAllProject()
