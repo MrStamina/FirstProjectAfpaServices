@@ -23,6 +23,7 @@ namespace ProjetAfpaService
         bool montantIsOk;
         DateTime dateFin;
         DateTime dateDebut;
+        
         public Form1()
         {
             InitializeComponent();
@@ -177,57 +178,57 @@ namespace ProjetAfpaService
         // On gère l'evenement du click sur valider
         private void buttonValider_Click(object sender, EventArgs e)
         {
-            Random random = new Random();
-            int codeProjet = random.Next(1, 100);
+            int CodeProjet = 0;
 
-
-            if (clickCreer == true)
+        
+           
+            if (comboBoxResponsable.SelectedItem != null && comboBoxClient != null && nomIsOk == true && dateIsOk == true && montantIsOk == true)
             {
-                if (comboBoxResponsable.SelectedItem != null && comboBoxClient != null && nomIsOk == true && dateIsOk == true && montantIsOk == true)
+                ProjetForfait projet = new ProjetForfait(CodeProjet, textBoxNomProjet.Text, dateDebut, dateFin, (Client)comboBoxClient.SelectedItem, textBoxContact.Text, textBoxMailContact.Text, Convert.ToDecimal(textBoxMontantContrat.Text), radioButtonOui.Checked, (Collaborateur)comboBoxResponsable.SelectedItem);
+                if (clickCreer == true)
                 {
 
-                    ProjetForfait projet = new ProjetForfait(codeProjet, textBoxNomProjet.Text, dateDebut, dateFin, (Client)comboBoxClient.SelectedItem, textBoxContact.Text, textBoxMailContact.Text, Convert.ToDecimal(textBoxMontantContrat.Text),radioButtonOui.Checked, (Collaborateur)comboBoxResponsable.SelectedItem);
+                    if (DaoProjet.AddProjet(projet, out CodeProjet) == true)
+                    {
+                        projet.CodeProjet = CodeProjet;
+                        projetForfaitBindingSource.Add(projet);
+                    }
+                    else
+                        MessageBox.Show("Le projet n'a pas été ajouté");
+                    projetForfaitBindingSource.ResumeBinding();
                     const string caption = "Projet enregistré";
                     string message = "Projet" + projet.ToString() + "\n" + "Client" + comboBoxClient.SelectedItem.ToString() + "\n" + textBoxContact.Text + "," + textBoxMailContact.Text + "\n" + "[" + textBoxMontantContrat.Text + "," + "Collaborateur" + comboBoxResponsable.SelectedItem.ToString();
                     MessageBox.Show(message, caption, MessageBoxButtons.OK);
-                    DaoProjet.AddProjet(projet);
                     comboBoxNomProjet.Enabled = true;
-
-                    projetForfaitBindingSource.ResumeBinding();
                     comboBoxNomProjet.SelectedItem = null;
-                    MethodesUtiles.ChangerEnabledFalse(textBoxNomProjet, maskedTextBoxDateDebut, maskedTextBoxDateFin, comboBoxClient, textBoxContact
-                        , textBoxMailContact, comboBoxResponsable, groupBoxPenalites, textBoxMontantContrat, buttonValider);
-
+                    ChangerEnabledTrueOrFalse(false);
                     groupBoxForfait.Visible = false;
                     groupBoxProjet.Visible = false;
-
-
-                }
-                else
-                    MessageBox.Show("Veuillez selectionner un client et un collaborateur");
-            }
-            else if (clickModif == true)
-            {
-                Verif();
-                if (comboBoxResponsable.SelectedItem != null && comboBoxClient != null && nomIsOk == true && dateIsOk == true && montantIsOk == true)
+                }    
+                if (clickModif == true)
                 {
+                    Verif();
+                        
                     string message = "Veuillez confirmer la modification";
                     string caption = "Validation de la modification";
                     var result = MessageBox.Show(message, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (result == DialogResult.Yes)
                     {
-                        ProjetForfait projet = new ProjetForfait(codeProjet, textBoxNomProjet.Text, dateDebut, dateFin, (Client)comboBoxClient.SelectedItem, textBoxContact.Text, textBoxMailContact.Text, Convert.ToDecimal(textBoxMontantContrat.Text), radioButtonOui.Checked, (Collaborateur)comboBoxResponsable.SelectedItem);
-                        const string caption2 = "Projet enregistré";
+                        projet.CodeProjet = ((ProjetForfait)comboBoxNomProjet.SelectedItem).CodeProjet;
+
+                        if (DaoProjet.UpdProjet(projet) == true)
+                        {
+                            projetForfaitBindingSource.ResumeBinding();
+                        }
+                        else
+                            MessageBox.Show("La mise a jour n'a pas été effectuée");
+                        const string caption2 = "Projet modifié";
                         string message2 = "Projet" + projet.ToString() + "\n" + "Client" + comboBoxClient.SelectedItem.ToString() + "\n" + textBoxContact.Text + "," + textBoxMailContact.Text + "\n" + "[" + textBoxMontantContrat.Text + "," + "Collaborateur" + comboBoxResponsable.SelectedItem.ToString();
                         MessageBox.Show(message2, caption2, MessageBoxButtons.OK);
-                        DaoProjet.AddProjet(projet);
                         comboBoxNomProjet.Enabled = true;
-
                         projetForfaitBindingSource.ResumeBinding();
                         comboBoxNomProjet.SelectedItem = null;
-                        MethodesUtiles.ChangerEnabledFalse(textBoxNomProjet, maskedTextBoxDateDebut, maskedTextBoxDateFin, comboBoxClient, textBoxContact
-                            , textBoxMailContact, comboBoxResponsable, groupBoxPenalites, textBoxMontantContrat, buttonValider);
-
+                        ChangerEnabledTrueOrFalse(false);
                         groupBoxForfait.Visible = false;
                         groupBoxProjet.Visible = false;
                     }
@@ -248,7 +249,14 @@ namespace ProjetAfpaService
                 {
                     errorProviderMontant.SetError(textBoxMontantContrat, "Le montant du contrat est obligatoire pour créer un projet");
                 }
-
+                else if (comboBoxClient.SelectedItem == null)
+                {
+                    MessageBox.Show("Veuillez selectionner un client");
+                }
+                else if(comboBoxResponsable.SelectedItem == null)
+                {
+                    MessageBox.Show("Veuillez selectionneur un collaborateur");
+                }
             }
 
 
@@ -283,11 +291,11 @@ namespace ProjetAfpaService
 
                 groupBoxProjet.Visible = true;
                 groupBoxForfait.Visible = true;
-                MethodesUtiles.ChangerEnabledFalse(textBoxNomProjet, maskedTextBoxDateDebut, maskedTextBoxDateFin, comboBoxClient, textBoxContact
-                    , textBoxMailContact, comboBoxResponsable, groupBoxPenalites, textBoxMontantContrat, buttonValider);
+                ChangerEnabledTrueOrFalse(false);
                 buttonModifier.Enabled = true;
                 buttonSupprimer.Enabled = true;
                 buttonCreer.Enabled = false;
+                buttonValider.Enabled = false;
                 if (projet.PenaliteOuiNon == Penalite.Oui)
                 {
                     radioButtonOui.Checked = true;
@@ -302,19 +310,20 @@ namespace ProjetAfpaService
 
         // Méthode pour changer l'Enabled
         #region Méthode pour changer Enable
-        private void ChangerEnabledTrue()
+        private void ChangerEnabledTrueOrFalse(bool trueFalse)
         {
-            textBoxNomProjet.Enabled = true;
-            maskedTextBoxDateDebut.Enabled = true;
-            maskedTextBoxDateFin.Enabled = true;
-            comboBoxClient.Enabled = true;
-            textBoxContact.Enabled = true;
-            textBoxMailContact.Enabled = true;
-            comboBoxResponsable.Enabled = true;
-            groupBoxPenalites.Enabled = true;
-            textBoxMontantContrat.Enabled = true;
-            buttonValider.Enabled = false;
+            textBoxNomProjet.Enabled = trueFalse;
+            maskedTextBoxDateDebut.Enabled = trueFalse;
+            maskedTextBoxDateFin.Enabled = trueFalse;
+            comboBoxClient.Enabled = trueFalse;
+            textBoxContact.Enabled = trueFalse;
+            textBoxMailContact.Enabled = trueFalse;
+            comboBoxResponsable.Enabled = trueFalse;
+            groupBoxPenalites.Enabled = trueFalse;
+            textBoxMontantContrat.Enabled = trueFalse;
+            
         }
+       
 
         #endregion
 
@@ -323,7 +332,7 @@ namespace ProjetAfpaService
         private void buttonModifier_Click(object sender, EventArgs e)
         {
 
-            ChangerEnabledTrue();
+            ChangerEnabledTrueOrFalse(true);
             buttonValider.Enabled = true;
             clickModif = true;
             clickCreer = false;
@@ -336,7 +345,7 @@ namespace ProjetAfpaService
             InitDatabinding(true);
             groupBoxForfait.Visible = true;
             groupBoxProjet.Visible = true;
-            ChangerEnabledTrue();
+            ChangerEnabledTrueOrFalse(true);
             buttonModifier.Enabled = false;
             buttonSupprimer.Enabled = false;
             buttonValider.Enabled = true;
@@ -368,10 +377,11 @@ namespace ProjetAfpaService
 
         private void buttonAnnuler_Click(object sender, EventArgs e)
         {
-
+            InitDatabinding(false);
             projetForfaitBindingSource.ResetCurrentItem();
             groupBoxForfait.Visible = false;
             groupBoxProjet.Visible = false;
+            comboBoxNomProjet.Enabled = true;
             comboBoxNomProjet.SelectedItem = null;
             buttonCreer.Enabled = true;
 
@@ -387,8 +397,15 @@ namespace ProjetAfpaService
                 var result = MessageBox.Show(message, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
-                    projetForfaitBindingSource.Remove(comboBoxNomProjet.SelectedItem);
-                    projetForfaitBindingSource.ResetBindings(true);
+                    ProjetForfait projet = new ProjetForfait();
+                    projet.CodeProjet = ((ProjetForfait)comboBoxNomProjet.SelectedItem).CodeProjet;
+                    if (DaoProjet.DelProjet(projet) == true)
+                    {
+                        projetForfaitBindingSource.Remove(comboBoxNomProjet.SelectedItem);
+                        projetForfaitBindingSource.ResetBindings(true);
+                    }
+                    else
+                        MessageBox.Show("Le projet n'a pas pu etre supprimé");
                 }
             }
             comboBoxNomProjet.SelectedItem = null;

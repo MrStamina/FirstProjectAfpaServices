@@ -33,19 +33,19 @@ namespace ProjetAfpaService.Methodes
         //    }
         //}
 
-        public static void ChangerEnabledFalse(TextBox txtbox, MaskedTextBox msktxtbox, MaskedTextBox msktxtbox2, ComboBox cbobox,
-            TextBox txtbox2, TextBox txtbox3, ComboBox cbobox2, GroupBox grp, TextBox txtbox4, Button butt )
-        {
-            txtbox.Enabled = false;
-            msktxtbox.Enabled = false;
-            msktxtbox2.Enabled = false;
-            cbobox.Enabled = false;
-            txtbox2.Enabled = false;
-            txtbox3.Enabled = false;
-            cbobox2.Enabled = false;
-            grp.Enabled = false;
-            txtbox4.Enabled = false;
-            butt.Enabled = false;
-        }
+        //public static void ChangerEnabledFalse(TextBox txtbox, MaskedTextBox msktxtbox, MaskedTextBox msktxtbox2, ComboBox cbobox,
+        //    TextBox txtbox2, TextBox txtbox3, ComboBox cbobox2, GroupBox grp, TextBox txtbox4, Button butt )
+        //{
+        //    txtbox.Enabled = false;
+        //    msktxtbox.Enabled = false;
+        //    msktxtbox2.Enabled = false;
+        //    cbobox.Enabled = false;
+        //    txtbox2.Enabled = false;
+        //    txtbox3.Enabled = false;
+        //    cbobox2.Enabled = false;
+        //    grp.Enabled = false;
+        //    txtbox4.Enabled = false;
+        //    butt.Enabled = false;
+        //}
     }
 }
