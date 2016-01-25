@@ -281,7 +281,7 @@ namespace ProjetAfpaService
         }
         #endregion
 
-        // Gestion de la combobox Nom projet
+        // Gestion de la combobox Nom projet...
 
         private void comboBoxNomProjet_SelectedIndexChanged(object sender, EventArgs e)
         {
