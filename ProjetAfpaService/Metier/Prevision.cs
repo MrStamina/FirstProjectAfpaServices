@@ -10,12 +10,23 @@ namespace ProjetAfpaService.Metier
     {
         public Qualification LaQualif { get; set; }
         public short NbJours { get; set; }
+        public int CodePrevision { get; set; }
+        public int CodeProjet { get; set; }
 
+        public Prevision()
+        {
 
+        }
         public Prevision(Qualification initLaQualif, short initNbJours)
         {
             LaQualif = initLaQualif;
             NbJours = initNbJours;
         }
+
+        //Equals
+        //public override bool Equals(object obj)
+        //{
+        //    return other is Prevision && 
+        //}
     }
 }

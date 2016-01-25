@@ -17,8 +17,9 @@ namespace ProjetAfpaService.Vues
         // Gestion du chargement des bindings
         private void Prevision_Load(object sender, EventArgs e)
         {
-            //qualificationBindingSource.DataSource = DaoProjet.GetAllQualification();
+            
             projetForfaitBindingSource.DataSource = DaoProjet.GetAllProject();
+            qualificationBindingSource.DataSource = DaoProjet.GetAllQualification();
             comboBoxProjet.SelectedItem = null;
             groupBoxPrevision.Visible = false;
         }

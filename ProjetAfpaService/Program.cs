@@ -19,7 +19,7 @@ namespace ProjetAfpaService
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //DaoProjet.Init();
-            Application.Run(new FrmProjetAuForfait());
+            Application.Run(new FrmPrevisions());
             
         }
     }

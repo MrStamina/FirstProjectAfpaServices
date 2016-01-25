@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ProjetAfpaService.Dao;
+using ProjetAfpaService.Exceptions;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace ProjetAfpaService.Metier
 {
@@ -10,7 +14,7 @@ namespace ProjetAfpaService.Metier
         public decimal MontantContrat{ get; set; }
         public Penalite PenaliteOuiNon { get; set; }
         public Collaborateur ChefDeProjet{ get; set; }
-        private List<Prevision> previsions;
+        public List<Prevision> previsions;
 
         
         public ProjetForfait()
@@ -55,6 +59,7 @@ namespace ProjetAfpaService.Metier
            
 
         }
+        
 
         
         public override string ToString()
@@ -62,11 +67,46 @@ namespace ProjetAfpaService.Metier
             return base.ToString();
         }
 
-        public  List<Prevision> GetAllPrevision()
+        public List<Prevision> GetAllPrevision()
         {
-            return previsions;
-        }
+            using (SqlConnection sqlConnect = DaoProjet.GetConnection())
+            {
+                using (SqlCommand sqlCde = new SqlCommand())
+                {
+                    sqlCde.Connection = sqlConnect;
+                    string strsql = "GetAllPrevisions";
 
+                    try
+                    {
+                        sqlCde.CommandType = CommandType.StoredProcedure;
+                        sqlCde.CommandText = strsql;
+                        SqlDataReader sqlRdr = sqlCde.ExecuteReader();
+                        previsions = new List<Prevision>();
+                        while (sqlRdr.Read())
+                        {
+                            Prevision previs = new Prevision()
+                            {
+                                CodePrevision = sqlRdr.GetInt32(0),
+                                CodeProjet = sqlRdr.GetInt32(1),
+                                NbJours = sqlRdr.GetInt16(3),                         
+                                LaQualif = new Qualification()
+                                {
+                                    CodeQualif = (sbyte)sqlRdr.GetByte(2)
+                                },
+                            };
+                            previsions.Add(previs);
+                        }
+                        sqlRdr.Close();
+                        return previsions;
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new DAOException(ex.Message);
+                    }
+                }
+            }
+        }
+        //TODO Faire le getallQualification, comparer idprojet, Codequalif et faire Form(Mère-Fille)
         public  bool AddPrevision(Prevision prev)
         {
             previsions.Add(prev);
