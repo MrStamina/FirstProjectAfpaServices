@@ -14,7 +14,7 @@ using ProjetAfpaService.Metier;
 
 namespace ProjetAfpaService
 {
-    public partial class Form1 : Form
+    public partial class FrmProjetAuForfait : Form
     {
         bool clickCreer;
         bool clickModif;
@@ -24,7 +24,7 @@ namespace ProjetAfpaService
         DateTime dateFin;
         DateTime dateDebut;
         
-        public Form1()
+        public FrmProjetAuForfait()
         {
             InitializeComponent();
             this.CancelButton = buttonAnnuler;

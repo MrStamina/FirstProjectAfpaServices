@@ -1,6 +1,6 @@
 ﻿namespace ProjetAfpaService
 {
-    partial class Form1
+    partial class FrmProjetAuForfait
     {
         /// <summary>
         /// Variable nécessaire au concepteur.
@@ -440,7 +440,7 @@
             // 
             this.errorProviderCollaborateur.ContainerControl = this;
             // 
-            // Form1
+            // FrmProjetAuForfait
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -452,7 +452,7 @@
             this.Controls.Add(this.buttonQuitter);
             this.Controls.Add(this.groupBoxForfait);
             this.Controls.Add(this.groupBoxProjet);
-            this.Name = "Form1";
+            this.Name = "FrmProjetAuForfait";
             this.Text = "Création d\'un projet au forfait";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
