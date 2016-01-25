@@ -338,7 +338,7 @@ namespace ProjetAfpaService
             clickCreer = false;
         }
 
-        // Gestion du click sur le bouton créer...
+        // Gestion du click sur le bouton créer
 
         private void buttonCreer_Click(object sender, EventArgs e)
         {
