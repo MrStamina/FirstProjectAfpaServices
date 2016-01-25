@@ -56,21 +56,7 @@ namespace ProjetAfpaService.Metier
 
         }
 
-        public ProjetForfait(int initCodeProjet, string initNomProjet, DateTime initDdebut, DateTime initDfin, Client initLeCLient, string initContact, string initMailContact, decimal initMontantContrat, Collaborateur initChefDeProjet)
-        {
-            CodeProjet = initCodeProjet;
-            NomProjet = initNomProjet;
-            DDebut = initDdebut;
-            DFin = initDfin;
-            LeClient = initLeCLient;
-            Contact = initContact;
-            MailContact = initMailContact;
-            MontantContrat = initMontantContrat;
-            ChefDeProjet = initChefDeProjet;
-
-
-        }
-
+        
         public override string ToString()
         {
             return base.ToString();

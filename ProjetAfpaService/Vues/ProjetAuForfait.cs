@@ -27,106 +27,105 @@ namespace ProjetAfpaService
         {
             InitializeComponent();
             this.CancelButton = buttonAnnuler;
-            
+
         }
 
         // Controle de la saisie des informations
         #region Gestion de la saisie des informations
         private void textBoxNomProjet_Validating(object sender, CancelEventArgs e)
         {
-            if (clickModif == true || clickCreer == true)
-            {
-                if (textBoxNomProjet.Text == string.Empty)
-                {
-                    errorProviderNomProjet.SetError(textBoxNomProjet, "Veuillez entrer un nom de projet");
-                    textBoxNomProjet.Focus();
-                    nomIsOk = false;
-                }
-                else
-                {
 
-                    errorProviderNomProjet.SetError(textBoxNomProjet, string.Empty);
-                    nomIsOk = true;
-                }
+
+            if (textBoxNomProjet.Text == string.Empty)
+            {
+                errorProviderNomProjet.SetError(textBoxNomProjet, "Veuillez entrer un nom de projet");
+                textBoxNomProjet.Focus();
+                nomIsOk = false;
             }
+            else
+            {
+
+                errorProviderNomProjet.SetError(textBoxNomProjet, string.Empty);
+                nomIsOk = true;
+            }
+
         }
         private void maskedTextBoxDateDebut_Validating(object sender, CancelEventArgs e)
         {
-            if (clickModif == true || clickCreer == true)
+
+
+            if (DateTime.TryParse(maskedTextBoxDateDebut.Text, out dateDebut))
             {
-                if (DateTime.TryParse(maskedTextBoxDateDebut.Text, out dateDebut))
-                {
 
-                    errorProviderDateDebut.SetError(maskedTextBoxDateDebut, string.Empty);
-                    dateIsOk = false;
-                }
-                else
-                {
-
-                    errorProviderDateDebut.SetError(maskedTextBoxDateDebut, "Veuillez entrer une date au format valide");
-                    dateIsOk = true;
-                }
+                errorProviderDateDebut.SetError(maskedTextBoxDateDebut, string.Empty);
+                dateIsOk = true;
             }
+            else
+            {
+
+                errorProviderDateDebut.SetError(maskedTextBoxDateDebut, "Veuillez entrer une date au format valide");
+                dateIsOk = false;
+            }
+
         }
 
         private void maskedTextBoxDateFin_Validating(object sender, CancelEventArgs e)
         {
-            if (clickModif == true || clickCreer == true)
-            {
-                if (DateTime.TryParse(maskedTextBoxDateFin.Text, out dateFin))
-                {
 
-                    errorProviderDateFin.SetError(maskedTextBoxDateFin, string.Empty);
-                    if (dateFin <= dateDebut)
-                    {
-                        dateIsOk = false;
-                        errorProviderDateFin.SetError(maskedTextBoxDateFin, "Attention la date saisie se situe avant la date de début");
-                        maskedTextBoxDateFin.Focus();
-                        
-                    }
-                    else
-                    {
-                        dateIsOk = false;
-                        errorProviderDateFin.SetError(maskedTextBoxDateFin, string.Empty);
-                    }
+
+            if (DateTime.TryParse(maskedTextBoxDateFin.Text, out dateFin))
+            {
+
+                errorProviderDateFin.SetError(maskedTextBoxDateFin, string.Empty);
+                if (dateFin <= dateDebut)
+                {
+                    dateIsOk = false;
+                    errorProviderDateFin.SetError(maskedTextBoxDateFin, "Attention la date saisie se situe avant la date de début");
+                    maskedTextBoxDateFin.Focus();
+
                 }
                 else
                 {
-                    dateIsOk = false;
-                    errorProviderDateFin.SetError(maskedTextBoxDateFin, " Veuillez entrer une date au format valide");
+                    dateIsOk = true;
+                    errorProviderDateFin.SetError(maskedTextBoxDateFin, string.Empty);
                 }
             }
+            else
+            {
+                dateIsOk = false;
+                errorProviderDateFin.SetError(maskedTextBoxDateFin, " Veuillez entrer une date au format valide");
+            }
+
         }
 
         private void textBoxContact_KeyPress(object sender, KeyPressEventArgs e)
         {
-            //if (clickModif == true || clickCreer == true)
-            //{
 
-                if (!char.IsLetter(e.KeyChar) & e.KeyChar != (char)Keys.Back & e.KeyChar != (char)Keys.Space)
-                {
-                    e.Handled = true;
-                }
-            //}
+
+            if (!char.IsLetter(e.KeyChar) & e.KeyChar != (char)Keys.Back & e.KeyChar != (char)Keys.Space)
+            {
+                e.Handled = true;
+            }
+
         }
 
         private void textBoxMailContact_Validating(object sender, CancelEventArgs e)
         {
-            if (clickModif == true || clickCreer == true)
+
+
+            if (textBoxMailContact.Text != string.Empty)
             {
-                if (textBoxMailContact.Text != string.Empty)
+                if (!Regex.IsMatch(textBoxMailContact.Text, @"^([\w-\.])+@([\w]+\.)([a-zA-Z0-9]{2,4})$"))
                 {
-                    if (!Regex.IsMatch(textBoxMailContact.Text, @"^([\w-\.])+@([\w]+\.)([a-zA-Z0-9]{2,4})$"))
-                    {
-                        errorProviderMailAdress.SetError(textBoxMailContact, "Le format de l'adresse mail est incorrect");
-                        textBoxMailContact.Focus();
-                    }
-                    else
-                    {
-                        errorProviderMailAdress.SetError(textBoxMailContact, string.Empty);
-                    }
+                    errorProviderMailAdress.SetError(textBoxMailContact, "Le format de l'adresse mail est incorrect");
+                    textBoxMailContact.Focus();
+                }
+                else
+                {
+                    errorProviderMailAdress.SetError(textBoxMailContact, string.Empty);
                 }
             }
+
         }
 
         private void textBoxMailContact_Validated(object sender, EventArgs e)
@@ -136,20 +135,20 @@ namespace ProjetAfpaService
 
         private void textBoxMontantContrat_Validating(object sender, CancelEventArgs e)
         {
-            if (clickModif == true || clickCreer == true)
-            {
-                if (textBoxMontantContrat.Text == string.Empty)
-                {
-                    montantIsOk = false;
-                    errorProviderMontant.SetError(textBoxMontantContrat, "Veuillez saisir le montant du contrat");
 
-                }
-                else
-                {
-                    montantIsOk = true;
-                    errorProviderMontant.SetError(textBoxMontantContrat, string.Empty);
-                }
+
+            if (textBoxMontantContrat.Text == string.Empty)
+            {
+                montantIsOk = false;
+                errorProviderMontant.SetError(textBoxMontantContrat, "Veuillez saisir le montant du contrat");
+
             }
+            else
+            {
+                montantIsOk = true;
+                errorProviderMontant.SetError(textBoxMontantContrat, string.Empty);
+            }
+
         }
 
         private void textBoxMontantContrat_KeyPress(object sender, KeyPressEventArgs e)
@@ -182,12 +181,12 @@ namespace ProjetAfpaService
             int codeProjet = random.Next(1, 100);
 
 
-            if (clickCreer == true && nomIsOk == true)
+            if (clickCreer == true)
             {
                 if (comboBoxResponsable.SelectedItem != null && comboBoxClient != null && nomIsOk == true && dateIsOk == true && montantIsOk == true)
                 {
 
-                    ProjetForfait projet = new ProjetForfait(codeProjet, textBoxNomProjet.Text, dateDebut, dateFin, (Client)comboBoxClient.SelectedItem, textBoxContact.Text, textBoxMailContact.Text, Convert.ToDecimal(textBoxMontantContrat.Text), (Collaborateur)comboBoxResponsable.SelectedItem);
+                    ProjetForfait projet = new ProjetForfait(codeProjet, textBoxNomProjet.Text, dateDebut, dateFin, (Client)comboBoxClient.SelectedItem, textBoxContact.Text, textBoxMailContact.Text, Convert.ToDecimal(textBoxMontantContrat.Text),radioButtonOui.Checked, (Collaborateur)comboBoxResponsable.SelectedItem);
                     const string caption = "Projet enregistré";
                     string message = "Projet" + projet.ToString() + "\n" + "Client" + comboBoxClient.SelectedItem.ToString() + "\n" + textBoxContact.Text + "," + textBoxMailContact.Text + "\n" + "[" + textBoxMontantContrat.Text + "," + "Collaborateur" + comboBoxResponsable.SelectedItem.ToString();
                     MessageBox.Show(message, caption, MessageBoxButtons.OK);
@@ -207,27 +206,31 @@ namespace ProjetAfpaService
                 else
                     MessageBox.Show("Veuillez selectionner un client et un collaborateur");
             }
-            else if (clickModif == true && nomIsOk == true && dateIsOk == true && montantIsOk == true)
+            else if (clickModif == true)
             {
-                string message = "Veuillez confirmer la modification";
-                string caption = "Validation de la modification";
-                var result = MessageBox.Show(message, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (result == DialogResult.Yes)
+                Verif();
+                if (comboBoxResponsable.SelectedItem != null && comboBoxClient != null && nomIsOk == true && dateIsOk == true && montantIsOk == true)
                 {
-                    ProjetForfait projet = new ProjetForfait(codeProjet, textBoxNomProjet.Text, dateDebut, dateFin, (Client)comboBoxClient.SelectedItem, textBoxContact.Text, textBoxMailContact.Text, Convert.ToDecimal(textBoxMontantContrat.Text), (Collaborateur)comboBoxResponsable.SelectedItem);
-                    const string caption2 = "Projet enregistré";
-                    string message2 = "Projet" + projet.ToString() + "\n" + "Client" + comboBoxClient.SelectedItem.ToString() + "\n" + textBoxContact.Text + "," + textBoxMailContact.Text + "\n" + "[" + textBoxMontantContrat.Text + "," + "Collaborateur" + comboBoxResponsable.SelectedItem.ToString();
-                    MessageBox.Show(message2, caption2, MessageBoxButtons.OK);
-                    DaoProjet.AddProjet(projet);
-                    comboBoxNomProjet.Enabled = true;
+                    string message = "Veuillez confirmer la modification";
+                    string caption = "Validation de la modification";
+                    var result = MessageBox.Show(message, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (result == DialogResult.Yes)
+                    {
+                        ProjetForfait projet = new ProjetForfait(codeProjet, textBoxNomProjet.Text, dateDebut, dateFin, (Client)comboBoxClient.SelectedItem, textBoxContact.Text, textBoxMailContact.Text, Convert.ToDecimal(textBoxMontantContrat.Text), radioButtonOui.Checked, (Collaborateur)comboBoxResponsable.SelectedItem);
+                        const string caption2 = "Projet enregistré";
+                        string message2 = "Projet" + projet.ToString() + "\n" + "Client" + comboBoxClient.SelectedItem.ToString() + "\n" + textBoxContact.Text + "," + textBoxMailContact.Text + "\n" + "[" + textBoxMontantContrat.Text + "," + "Collaborateur" + comboBoxResponsable.SelectedItem.ToString();
+                        MessageBox.Show(message2, caption2, MessageBoxButtons.OK);
+                        DaoProjet.AddProjet(projet);
+                        comboBoxNomProjet.Enabled = true;
 
-                    projetForfaitBindingSource.ResumeBinding();
-                    comboBoxNomProjet.SelectedItem = null;
-                    MethodesUtiles.ChangerEnabledFalse(textBoxNomProjet, maskedTextBoxDateDebut, maskedTextBoxDateFin, comboBoxClient, textBoxContact
-                        , textBoxMailContact, comboBoxResponsable, groupBoxPenalites, textBoxMontantContrat, buttonValider);
+                        projetForfaitBindingSource.ResumeBinding();
+                        comboBoxNomProjet.SelectedItem = null;
+                        MethodesUtiles.ChangerEnabledFalse(textBoxNomProjet, maskedTextBoxDateDebut, maskedTextBoxDateFin, comboBoxClient, textBoxContact
+                            , textBoxMailContact, comboBoxResponsable, groupBoxPenalites, textBoxMontantContrat, buttonValider);
 
-                    groupBoxForfait.Visible = false;
-                    groupBoxProjet.Visible = false;
+                        groupBoxForfait.Visible = false;
+                        groupBoxProjet.Visible = false;
+                    }
                 }
             }
             else
@@ -245,8 +248,9 @@ namespace ProjetAfpaService
                 {
                     errorProviderMontant.SetError(textBoxMontantContrat, "Le montant du contrat est obligatoire pour créer un projet");
                 }
-                
+
             }
+
 
 
         }
@@ -276,13 +280,13 @@ namespace ProjetAfpaService
             ProjetForfait projet = (ProjetForfait)comboBoxNomProjet.SelectedItem;
             if (comboBoxNomProjet.SelectedItem != null)
             {
-                
+
                 groupBoxProjet.Visible = true;
                 groupBoxForfait.Visible = true;
                 MethodesUtiles.ChangerEnabledFalse(textBoxNomProjet, maskedTextBoxDateDebut, maskedTextBoxDateFin, comboBoxClient, textBoxContact
                     , textBoxMailContact, comboBoxResponsable, groupBoxPenalites, textBoxMontantContrat, buttonValider);
                 buttonModifier.Enabled = true;
-                buttonSupprimer.Enabled = true;        
+                buttonSupprimer.Enabled = true;
                 buttonCreer.Enabled = false;
                 if (projet.PenaliteOuiNon == Penalite.Oui)
                 {
@@ -291,7 +295,7 @@ namespace ProjetAfpaService
                 else
                     radioButtonNon.Checked = true;
             }
-            
+
 
         }
 
@@ -322,10 +326,11 @@ namespace ProjetAfpaService
             ChangerEnabledTrue();
             buttonValider.Enabled = true;
             clickModif = true;
+            clickCreer = false;
         }
 
         // Gestion du click sur le bouton créer
-        
+
         private void buttonCreer_Click(object sender, EventArgs e)
         {
             InitDatabinding(true);
@@ -340,19 +345,19 @@ namespace ProjetAfpaService
             comboBoxClient.SelectedItem = null;
             comboBoxResponsable.SelectedItem = null;
             clickCreer = true;
-    
 
-           
+
+
         }
 
         // gestion du databinding
         private void InitDatabinding(bool enable)
         {
-            if(enable)
+            if (enable)
             {
                 projetForfaitBindingSource.SuspendBinding();
             }
-            else if(!enable)
+            else if (!enable)
             {
                 projetForfaitBindingSource.ResumeBinding();
             }
@@ -360,7 +365,7 @@ namespace ProjetAfpaService
 
         // Gestion du bouton annuler
 
-        
+
         private void buttonAnnuler_Click(object sender, EventArgs e)
         {
 
@@ -369,18 +374,18 @@ namespace ProjetAfpaService
             groupBoxProjet.Visible = false;
             comboBoxNomProjet.SelectedItem = null;
             buttonCreer.Enabled = true;
-                     
+
         }
 
         // Gestion du boutton supprimer
         private void buttonSupprimer_Click(object sender, EventArgs e)
         {
-            if(comboBoxNomProjet.SelectedIndex >= 0)
+            if (comboBoxNomProjet.SelectedIndex >= 0)
             {
                 string message = "Etes-vous sûr de vouloir supprimer";
                 string caption = "Suppression d'un projet";
                 var result = MessageBox.Show(message, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if(result == DialogResult.Yes)
+                if (result == DialogResult.Yes)
                 {
                     projetForfaitBindingSource.Remove(comboBoxNomProjet.SelectedItem);
                     projetForfaitBindingSource.ResetBindings(true);
@@ -391,18 +396,77 @@ namespace ProjetAfpaService
             groupBoxForfait.Visible = false;
         }
 
-        //private void Verif()
-        //{
-        //    if (textBoxNomProjet.Text == string.Empty)
-        //        textBoxNomProjet.Focus();
-        //    else if (!maskedTextBoxDateDebut.MaskCompleted)
-        //        maskedTextBoxDateDebut.Focus();
-        //    else if (dateFin > dateDebut || !maskedTextBoxDateFin.MaskCompleted)
-        //        maskedTextBoxDateFin.Focus();
-        //    else if (textBoxMontantContrat.Text == string.Empty)
-        //        textBoxMontantContrat.Focus();
-        //}
+        private void Verif()
+        {
+            if (textBoxNomProjet.Text != string.Empty)
+            {
+                
+                nomIsOk = true;
+            }
+            if (DateTime.TryParse(maskedTextBoxDateDebut.Text, out dateDebut))
+            {
 
+                errorProviderDateDebut.SetError(maskedTextBoxDateDebut, string.Empty);
+                dateIsOk = true;
+            }
+           
+            if (DateTime.TryParse(maskedTextBoxDateFin.Text, out dateFin))
+            {
+
+                errorProviderDateFin.SetError(maskedTextBoxDateFin, string.Empty);
+                if (dateFin <= dateDebut)
+                {
+                    dateIsOk = false;
+                    errorProviderDateFin.SetError(maskedTextBoxDateFin, "Attention la date saisie se situe avant la date de début");
+                    maskedTextBoxDateFin.Focus();
+
+                }
+                else
+                {
+                    dateIsOk = true;
+                    errorProviderDateFin.SetError(maskedTextBoxDateFin, string.Empty);
+                }
+            }
+                  
+            if (textBoxMailContact.Text != string.Empty)
+            {
+                if (!Regex.IsMatch(textBoxMailContact.Text, @"^([\w-\.])+@([\w]+\.)([a-zA-Z0-9]{2,4})$"))
+                {
+                    errorProviderMailAdress.SetError(textBoxMailContact, "Le format de l'adresse mail est incorrect");
+                    textBoxMailContact.Focus();
+                }
+                else
+                {
+                    errorProviderMailAdress.SetError(textBoxMailContact, string.Empty);
+                }
+            }
+            if (textBoxMontantContrat.Text != string.Empty)
+            {
+                montantIsOk = true;
+                
+
+            }
+            else
+            {
+                if (nomIsOk == false)
+                {
+                    errorProviderNomProjet.SetError(textBoxNomProjet, "Le nom est obligatoire pour créer un projet");
+                }
+                else if (dateIsOk == false)
+                {
+                    errorProviderDateDebut.SetError(maskedTextBoxDateDebut, "La saisie des dates est obligatoire");
+                    errorProviderDateFin.SetError(maskedTextBoxDateFin, "La saisie des dates est obligatoire");
+                }
+                else if (montantIsOk == false)
+                {
+                    errorProviderMontant.SetError(textBoxMontantContrat, "Le montant du contrat est obligatoire pour créer un projet");
+                }
+
+            }
+            
         
+        }
+
+
     }
 }
