@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using ProjetAfpaService.Dao;
 using System.Text.RegularExpressions;
 using ProjetAfpaService.Metier;
-using ProjetAfpaService.Methodes;
+
 
 namespace ProjetAfpaService
 {
