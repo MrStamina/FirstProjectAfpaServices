@@ -8,6 +8,10 @@ namespace ProjetAfpaService.Metier
 {
     class Prevision
     {
+        private sbyte codeQualif;
+        private decimal value;
+        private int idPrevision;
+
         public Qualification LaQualif { get; set; }
         public short NbJours { get; set; }
         public int CodePrevision { get; set; }
@@ -17,16 +21,27 @@ namespace ProjetAfpaService.Metier
         {
 
         }
-        public Prevision(Qualification initLaQualif, short initNbJours)
+
+        public Prevision(int codeProjet, Qualification Qualif, short value, int idPrevision)
         {
-            LaQualif = initLaQualif;
-            NbJours = initNbJours;
+            CodeProjet = codeProjet;
+            this.LaQualif = Qualif;
+            this.NbJours = value;
+            this.idPrevision = idPrevision;
         }
 
-        //Equals
-        //public override bool Equals(object obj)
+
+
+        //public Prevision(int initCodeProjet)
         //{
-        //    return other is Prevision && 
+        //    CodeProjet = initCodeProjet;
+
         //}
+
+        //Equals
+        public override bool Equals(object obj)
+        {
+            return obj is Prevision && CodePrevision == ((Prevision)obj).CodePrevision;
+        }
     }
 }

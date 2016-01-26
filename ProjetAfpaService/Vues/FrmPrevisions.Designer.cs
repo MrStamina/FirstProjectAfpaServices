@@ -30,11 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dataGridViewPrevisions = new System.Windows.Forms.DataGridView();
-            this.laQualifDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.qualificationBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.nbJoursDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Modifier = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Supprimer = new System.Windows.Forms.DataGridViewButtonColumn();
             this.previsionBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.comboBoxProjet = new System.Windows.Forms.ComboBox();
             this.projetForfaitBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -46,6 +42,12 @@
             this.buttonValider = new System.Windows.Forms.Button();
             this.comboBoxQualification = new System.Windows.Forms.ComboBox();
             this.buttonQuitter = new System.Windows.Forms.Button();
+            this.laQualifDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.nbJoursDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Modifier = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.Supprimer = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.codePrevisionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.codeProjetDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPrevisions)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.qualificationBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.previsionBindingSource)).BeginInit();
@@ -64,53 +66,20 @@
             this.laQualifDataGridViewTextBoxColumn,
             this.nbJoursDataGridViewTextBoxColumn,
             this.Modifier,
-            this.Supprimer});
+            this.Supprimer,
+            this.codePrevisionDataGridViewTextBoxColumn,
+            this.codeProjetDataGridViewTextBoxColumn});
             this.dataGridViewPrevisions.DataSource = this.previsionBindingSource;
-            this.dataGridViewPrevisions.Location = new System.Drawing.Point(29, 93);
+            this.dataGridViewPrevisions.Location = new System.Drawing.Point(29, 87);
             this.dataGridViewPrevisions.Name = "dataGridViewPrevisions";
             this.dataGridViewPrevisions.ReadOnly = true;
             this.dataGridViewPrevisions.Size = new System.Drawing.Size(611, 142);
             this.dataGridViewPrevisions.TabIndex = 0;
             this.dataGridViewPrevisions.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewPrevisions_CellContentClick);
             // 
-            // laQualifDataGridViewTextBoxColumn
-            // 
-            this.laQualifDataGridViewTextBoxColumn.DataPropertyName = "LaQualif";
-            this.laQualifDataGridViewTextBoxColumn.DataSource = this.qualificationBindingSource;
-            this.laQualifDataGridViewTextBoxColumn.DisplayMember = "Libelle";
-            this.laQualifDataGridViewTextBoxColumn.HeaderText = "LaQualif";
-            this.laQualifDataGridViewTextBoxColumn.Name = "laQualifDataGridViewTextBoxColumn";
-            this.laQualifDataGridViewTextBoxColumn.ReadOnly = true;
-            this.laQualifDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.laQualifDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.laQualifDataGridViewTextBoxColumn.ValueMember = "Self";
-            // 
             // qualificationBindingSource
             // 
             this.qualificationBindingSource.DataSource = typeof(ProjetAfpaService.Metier.Qualification);
-            // 
-            // nbJoursDataGridViewTextBoxColumn
-            // 
-            this.nbJoursDataGridViewTextBoxColumn.DataPropertyName = "NbJours";
-            this.nbJoursDataGridViewTextBoxColumn.HeaderText = "NbJours";
-            this.nbJoursDataGridViewTextBoxColumn.Name = "nbJoursDataGridViewTextBoxColumn";
-            this.nbJoursDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // Modifier
-            // 
-            this.Modifier.HeaderText = "";
-            this.Modifier.Name = "Modifier";
-            this.Modifier.ReadOnly = true;
-            this.Modifier.Text = "Modifier";
-            this.Modifier.UseColumnTextForButtonValue = true;
-            // 
-            // Supprimer
-            // 
-            this.Supprimer.HeaderText = "";
-            this.Supprimer.Name = "Supprimer";
-            this.Supprimer.ReadOnly = true;
-            this.Supprimer.Text = "Supprimer";
-            this.Supprimer.UseColumnTextForButtonValue = true;
             // 
             // previsionBindingSource
             // 
@@ -220,6 +189,58 @@
             this.buttonQuitter.UseVisualStyleBackColor = true;
             this.buttonQuitter.Click += new System.EventHandler(this.buttonQuitter_Click);
             // 
+            // laQualifDataGridViewTextBoxColumn
+            // 
+            this.laQualifDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.laQualifDataGridViewTextBoxColumn.DataPropertyName = "LaQualif";
+            this.laQualifDataGridViewTextBoxColumn.DataSource = this.qualificationBindingSource;
+            this.laQualifDataGridViewTextBoxColumn.DisplayMember = "Libelle";
+            this.laQualifDataGridViewTextBoxColumn.HeaderText = "LaQualif";
+            this.laQualifDataGridViewTextBoxColumn.Name = "laQualifDataGridViewTextBoxColumn";
+            this.laQualifDataGridViewTextBoxColumn.ReadOnly = true;
+            this.laQualifDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.laQualifDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.laQualifDataGridViewTextBoxColumn.ValueMember = "Self";
+            // 
+            // nbJoursDataGridViewTextBoxColumn
+            // 
+            this.nbJoursDataGridViewTextBoxColumn.DataPropertyName = "NbJours";
+            this.nbJoursDataGridViewTextBoxColumn.HeaderText = "NbJours";
+            this.nbJoursDataGridViewTextBoxColumn.Name = "nbJoursDataGridViewTextBoxColumn";
+            this.nbJoursDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // Modifier
+            // 
+            this.Modifier.HeaderText = "";
+            this.Modifier.Name = "Modifier";
+            this.Modifier.ReadOnly = true;
+            this.Modifier.Text = "Modifier";
+            this.Modifier.UseColumnTextForButtonValue = true;
+            // 
+            // Supprimer
+            // 
+            this.Supprimer.HeaderText = "";
+            this.Supprimer.Name = "Supprimer";
+            this.Supprimer.ReadOnly = true;
+            this.Supprimer.Text = "Supprimer";
+            this.Supprimer.UseColumnTextForButtonValue = true;
+            // 
+            // codePrevisionDataGridViewTextBoxColumn
+            // 
+            this.codePrevisionDataGridViewTextBoxColumn.DataPropertyName = "CodePrevision";
+            this.codePrevisionDataGridViewTextBoxColumn.HeaderText = "CodePrevision";
+            this.codePrevisionDataGridViewTextBoxColumn.Name = "codePrevisionDataGridViewTextBoxColumn";
+            this.codePrevisionDataGridViewTextBoxColumn.ReadOnly = true;
+            this.codePrevisionDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // codeProjetDataGridViewTextBoxColumn
+            // 
+            this.codeProjetDataGridViewTextBoxColumn.DataPropertyName = "CodeProjet";
+            this.codeProjetDataGridViewTextBoxColumn.HeaderText = "CodeProjet";
+            this.codeProjetDataGridViewTextBoxColumn.Name = "codeProjetDataGridViewTextBoxColumn";
+            this.codeProjetDataGridViewTextBoxColumn.ReadOnly = true;
+            this.codeProjetDataGridViewTextBoxColumn.Visible = false;
+            // 
             // FrmPrevisions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -247,7 +268,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.BindingSource previsionBindingSource;
         private System.Windows.Forms.DataGridView dataGridViewPrevisions;
         private System.Windows.Forms.BindingSource qualificationBindingSource;
         private System.Windows.Forms.ComboBox comboBoxProjet;
@@ -260,9 +280,12 @@
         private System.Windows.Forms.Button buttonValider;
         private System.Windows.Forms.BindingSource projetForfaitBindingSource;
         private System.Windows.Forms.Button buttonQuitter;
+        private System.Windows.Forms.BindingSource previsionBindingSource;
         private System.Windows.Forms.DataGridViewComboBoxColumn laQualifDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn nbJoursDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewButtonColumn Modifier;
         private System.Windows.Forms.DataGridViewButtonColumn Supprimer;
+        private System.Windows.Forms.DataGridViewTextBoxColumn codePrevisionDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn codeProjetDataGridViewTextBoxColumn;
     }
 }

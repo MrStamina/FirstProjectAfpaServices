@@ -20,6 +20,7 @@ namespace ProjetAfpaService.Vues
             
             projetForfaitBindingSource.DataSource = DaoProjet.GetAllProject();
             qualificationBindingSource.DataSource = DaoProjet.GetAllQualification();
+        
             comboBoxProjet.SelectedItem = null;
             groupBoxPrevision.Visible = false;
         }
@@ -29,7 +30,7 @@ namespace ProjetAfpaService.Vues
         {
             if(comboBoxProjet.SelectedItem != null)
             {
-                previsionBindingSource.DataSource = DaoProjet.GetAllProject()[comboBoxProjet.SelectedIndex].GetAllPrevision();
+                previsionBindingSource.DataSource = DaoProjet.GetPrevisionByProjet(((ProjetForfait)comboBoxProjet.SelectedItem).CodeProjet);
                 buttonCreer.Enabled = true;
             }
            
@@ -74,11 +75,19 @@ namespace ProjetAfpaService.Vues
 
         private void buttonValider_Click(object sender, EventArgs e)
         {
+            int idPrevision = 0;
+
             if (!buttonValiderModifClick &&comboBoxQualification.SelectedItem != null && numericUpDownNbJours.Value > 0)
             {
-                DaoProjet.GetAllProject()[comboBoxProjet.SelectedIndex].AddPrevision(new Prevision((Qualification)comboBoxQualification.SelectedItem, (short)numericUpDownNbJours.Value));
-                previsionBindingSource.DataSource = DaoProjet.GetAllProject()[comboBoxProjet.SelectedIndex].GetAllPrevision();
-                previsionBindingSource.ResetBindings(true);
+                Prevision Prev = new Prevision(((ProjetForfait)comboBoxProjet.SelectedItem).CodeProjet, ((Qualification)comboBoxQualification.SelectedItem), (short)numericUpDownNbJours.Value, idPrevision );
+                if (DaoProjet.AddPrevision(Prev, out idPrevision) == true)
+                {
+                    Prev.CodePrevision = idPrevision;
+                    previsionBindingSource.Add(Prev);
+                }
+                else
+                    MessageBox.Show("La prévision n'a pas été ajouté");
+                previsionBindingSource.ResumeBinding();
 
             }
             else if(buttonValiderModifClick)

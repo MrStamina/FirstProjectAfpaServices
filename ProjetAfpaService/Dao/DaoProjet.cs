@@ -22,15 +22,16 @@ namespace ProjetAfpaService.Dao
         // pas de constructeurs
         // cette classe n'existe que pour accéder aux données
 
-        public static List<ProjetForfait> Projets;
+        private static List<ProjetForfait> Projets;
         ////private static List<Projet> Projet;
 
 
         private static List<Client> Clients;
         private static List<Collaborateur> Collaborateurs;
-        public static List<Qualification> Qualifications;
-     
-       
+        private  static List<Qualification> Qualifications;
+        private static List<Prevision> previsions;
+
+
         public static List<Client> GetAllclients()
         {
             using (SqlConnection sqlConnect = GetConnection())
@@ -144,8 +145,10 @@ namespace ProjetAfpaService.Dao
 
 
                         // Execution de la commande et recup parametre de sortie
-                        SqlDataReader sqlRdr = sqlCde.ExecuteReader();
-                       idProjet = (int)sqlCde.Parameters["@idProjet"].Value;
+                        int n = sqlCde.ExecuteNonQuery();
+                        if (n == 1)
+                            MessageBox.Show("Mise a jour éffectuée");
+                        idProjet = (int)sqlCde.Parameters["@idProjet"].Value;
 
                         return true;
                         
@@ -291,10 +294,129 @@ namespace ProjetAfpaService.Dao
 
         }
 
+        public static List<Prevision> GetPrevisionByProjet(int idProjet)
+        {
+            using (SqlConnection sqlConnect = GetConnection())
+            {
+                using (SqlCommand sqlCde = new SqlCommand())
+                {
+                    sqlCde.Connection = sqlConnect;
+                    string strsql = "GetAllPrevisions";
+
+                    try
+                    {
+                        sqlCde.CommandType = CommandType.StoredProcedure;
+                        sqlCde.CommandText = strsql;
+                        
+
+                        //Definition du parametre
+
+                        SqlParameter p1 = new SqlParameter("@vidprojet", SqlDbType.Int);
+                        p1.Direction = ParameterDirection.Input;
+                        p1.Value = idProjet;
+                        sqlCde.Parameters.Add(p1);
+                        SqlDataReader sqlRdr = sqlCde.ExecuteReader();
+                        previsions = new List<Prevision>();
+                        while (sqlRdr.Read())
+                        {
+                            Prevision previs = new Prevision()
+                            {
+                                CodePrevision = sqlRdr.GetInt32(0),
+                                CodeProjet = sqlRdr.GetInt32(1),
+                                NbJours = sqlRdr.GetInt16(3),
+                                LaQualif = new Qualification()
+                                {
+                                    CodeQualif = (sbyte)sqlRdr.GetByte(2)
+                                },
+                            };
+                            previsions.Add(previs);
+                        }
+                        sqlRdr.Close();
+                        return previsions;
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new DAOException(ex.Message);
+                    }
+                }
+            }
+        }
+
         public static List<Qualification> GetAllQualification()
         {
-            return Qualifications;
+            using (SqlConnection sqlConnect = GetConnection())
+            {
+                using (SqlCommand sqlCde = new SqlCommand())
+                {
+                    sqlCde.Connection = sqlConnect;
+                    string strsql = "GetAllQualification";
+                    try
+                    {
+                        sqlCde.CommandType = CommandType.StoredProcedure;
+                        sqlCde.CommandText = strsql;
+                        SqlDataReader sqlRdr = sqlCde.ExecuteReader();
+                        Qualifications = new List<Qualification>();
+                        while (sqlRdr.Read())
+                        {
+                            Qualification qualif = new Qualification()
+                            {
+                                CodeQualif = (sbyte)sqlRdr.GetByte(0),
+                                Libelle = sqlRdr.GetString(1),
+                                PvJournee = sqlRdr.GetDecimal(2),
+
+                            };
+                            Qualifications.Add(qualif);
+                        }
+                        sqlRdr.Close();
+                        return Qualifications;
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new DAOException(ex.Message);
+                    }
+                }
+            }
         }
+
+        public static bool AddPrevision(Prevision prev, out int idPrev)
+        {
+            using (SqlConnection sqlConnect = GetConnection())
+            {
+                using (SqlCommand sqlCde = new SqlCommand())
+                {
+                    sqlCde.Connection = sqlConnect;
+                    string strsql = "AddPrevision";
+
+                    try
+                    {
+                        sqlCde.CommandType = CommandType.StoredProcedure;
+                        sqlCde.CommandText = strsql;
+
+                        //Ajout des paramètres
+
+                        sqlCde.Parameters.Add(new SqlParameter("@idprojet", SqlDbType.Int)).Value = prev.CodeProjet;
+                        sqlCde.Parameters.Add(new SqlParameter("@idqualif", SqlDbType.TinyInt)).Value = Convert.ToInt32(prev.LaQualif.CodeQualif);
+                        sqlCde.Parameters.Add(new SqlParameter("@nbJours", SqlDbType.SmallInt)).Value = prev.NbJours;
+                        sqlCde.Parameters.Add(new SqlParameter("@idPrevision", SqlDbType.Int)).Direction = ParameterDirection.Output;
+
+
+                        int n = sqlCde.ExecuteNonQuery();
+                        if (n == 1)
+                            MessageBox.Show("Mise a jour éffectuée");
+                        idPrev = (int)sqlCde.Parameters["@idPrevision"].Value;
+
+                        return true;
+
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new DAOException(ex.Message);
+                    }
+                }
+            }
+        }
+                     
+                    
 
         // Création d'un méthode pour se connecter a la base de donnée
         public static SqlConnection GetConnection()
